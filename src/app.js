@@ -35,10 +35,9 @@ const App = () => {
         ))}
       </ul>
       
-      
-
 
       <LogInComponent></LogInComponent>
+      
      
     </div>
   );
