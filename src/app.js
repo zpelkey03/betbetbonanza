@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchDataFromFirebase } from './data/database';
+import "tailwindcss/tailwind.css"; 
+import LogInComponent from './components/LogInComponent';
 
 const App = () => {
   const [dataFromFirebase, setDataFromFirebase] = useState([]);
@@ -32,6 +34,12 @@ const App = () => {
           <li key={index}>{JSON.stringify(item)}</li>
         ))}
       </ul>
+      
+      
+
+
+      <LogInComponent></LogInComponent>
+     
     </div>
   );
 };
