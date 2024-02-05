@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchDataFromFirebase } from './data/database';
 import "tailwindcss/tailwind.css"; 
-import LogInComponent from './components/LogInComponent';
+import LogInComponent from './presentation/LogInComponent';
 
 const App = () => {
   const [dataFromFirebase, setDataFromFirebase] = useState([]);
