@@ -29,6 +29,17 @@ function LogInComponent() {
     .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+
+    toast.error('Invalid email or password. Please try again.', {
+      position: 'top-right',
+      autoClose: 5000, // Close after 5 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
     // ..
     });
   }
@@ -41,6 +52,17 @@ function LogInComponent() {
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    toast.success('Succesfully signed in!', {
+      position: 'top-right',
+      autoClose: 5000, // Close after 5 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+
     // ...
   })
   .catch((error) => {
