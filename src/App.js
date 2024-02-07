@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchDataFromFirebase } from './data/database';
+import { fetchDataFromFirebase } from './business/database';
 import "tailwindcss/tailwind.css"; 
 import LogInComponent from './presentation/LogInComponent';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
