@@ -72,6 +72,8 @@ function LogInComponent() {
     user.displayName = firstName + " " + lastName;
     console.log("account successfully created!");
 
+    
+
     navigate('/dashboard'); 
 
     // ...
