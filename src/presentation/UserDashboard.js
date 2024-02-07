@@ -25,9 +25,9 @@ function UserDashboard() {
     return (
         <div>
 
-            <div class="flex bg-gray-800 text-white top-0 py-3 flex-wrap justify-around bg-silver">
-                <h1 class="text-lg font-semibold"> Welcome back:  </h1>
-                <ul class="flex gap-[40px] text-m">
+            <div className="flex bg-gray-800 text-white top-0 py-3 flex-wrap justify-around bg-silver">
+                <h1 className="text-lg font-semibold"> Welcome back:  </h1>
+                <ul className="flex gap-[40px] text-m">
                     <li><button onClick={signOutClicked}> Sign Out </button></li>
                     
                 </ul>
