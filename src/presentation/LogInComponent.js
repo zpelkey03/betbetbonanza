@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,15 +15,65 @@ function LogInComponent() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
-  const createAccount = () => {
+  //Used for Routing 
+  const navigate = useNavigate();
+
+
+  //Boiler plate code that tells Toast where and how long to show for 
+  const toastSettings = () => ({
+      position: 'top-right',
+      autoClose: 4000, // this means 4 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+
+  })
+
+  const createAccount = (e) => {
+
+    //TODO: This prevents the default form action of refreshing the page
+    // it should also prevent the form elements from showing in the URL
+    // but it doesnt so it needs to be fixed otherwise password is in plaintext in the URL lol 
+    e.preventDefault();
+
+    if (!email) {
+      console.log("Email error!")
+      toast.error("Email cannot be blank", toastSettings);
+      return;
+    } else if (!password) {
+      
+      toast.error("Password cannot be blank", toastSettings);
+      return;
+    } else if (!firstName) {
+      
+      toast.error("First name name cannot be blank", toastSettings);
+      return;
+    } else if (!lastName) {
+      
+      toast.error("Last name cannot be blank", toastSettings);
+      return;
+    }
+
+
   const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
     // Signed up
+
+    //Pass the first name and last name to the user's display name
     const user = userCredential.user;
 
-    console.log("account successfully created!")
+    //TODO: Strip whitespace and non alphabetical characters from the first and last name 
+    user.displayName = firstName + " " + lastName;
+    console.log("account successfully created!");
+
+    navigate('/dashboard'); 
+
     // ...
     })
 
@@ -30,15 +81,7 @@ function LogInComponent() {
     const errorCode = error.code;
     const errorMessage = error.message;
 
-    toast.error('Invalid email or password. Please try again.', {
-      position: 'top-right',
-      autoClose: 5000, // Close after 5 seconds
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.error('Invalid email or password. Please try again.', toastSettings);
 
     // ..
     });
@@ -50,34 +93,24 @@ function LogInComponent() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+
+
+
     // Signed in 
     const user = userCredential.user;
-    toast.success('Succesfully signed in!', {
-      position: 'top-right',
-      autoClose: 5000, // Close after 5 seconds
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.success('Succesfully signed in!', toastSettings);
 
-
-    // ...
+    //Force a 2 second delay before redirection so the toast.success message shows lol 
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 2000);
+    
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
 
-    toast.error('Invalid email or password. Please try again.', {
-      position: 'top-right',
-      autoClose: 5000, // Close after 5 seconds
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.error('Invalid email or password. Please try again.', toastSettings);
   });
 
   }
@@ -106,40 +139,38 @@ function LogInComponent() {
     contentToDisplay = (
       <div>
         <div className="mt-8">
-                  <form>
-                    <div>
-                      <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
-                      <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                    </div>
+          <form>
+            <div>
+              <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
+              <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            </div>
     
-                    <div className="mt-6">
-                      <div className="flex justify-between mb-2">
-                        <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200">Password</label>
-                        <a href="#" className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline">Forgot password?</a>
-                      </div>
-                      <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                    </div>
+            <div className="mt-6">
+              <div className="flex justify-between mb-2">
+                <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200">Password</label>
+                <a href="#" className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline">Forgot password?</a>
+              </div>
+              <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            </div>
     
-                    <div className="mt-6">
-                      <button onClick={signInAccount} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                        Sign In
-                      </button>
-  
-                      <button onClick={signUpClicked}className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 my-4">
-                        No account? Sign Up 
-                      </button>
-                    </div>
-                  </form>
+            <div className="mt-6">
+              <button onClick={signInAccount} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                Sign In
+              </button>
+              <button onClick={signUpClicked}className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 my-4">
+                No account? Sign Up 
+              </button>
+            </div>
+          </form>
           </div>
 
           <ToastContainer />
     
       </div>
     
-    
-    
+  
     )
-    
+
 
   } else {
     
@@ -152,12 +183,12 @@ function LogInComponent() {
             <div className="flex space-x-4 mt-6 my-3">
             <div className="flex-1">
             <label htmlFor="f_name" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">First Name</label>
-            <input type="f_name" name="f_name" id="f_name" placeholder="First Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input onChange={(e) => setFirstName(e.target.value)} type="f_name" name="f_name" id="f_name" placeholder="First Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div className="flex-1">
             <label htmlFor="l_name" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Last Name</label>
-            <input type="l_name" name="l_name" id="l_name" placeholder="Last Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input onChange={(e) => setLastName(e.target.value)} type="l_name" name="l_name" id="l_name" placeholder="Last Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
             </div>
 
@@ -182,14 +213,14 @@ function LogInComponent() {
             </button>
           </div>
         </form>
+
+        <ToastContainer />
       </div>
       
     ) 
   
   }
   
-  
-
   return (
     <div className="bg-white dark:bg-gray-900">
       <div className="flex justify-center h-screen">
@@ -210,6 +241,7 @@ function LogInComponent() {
             </div>
 
             {contentToDisplay}
+
           </div>
         </div>
       </div>
