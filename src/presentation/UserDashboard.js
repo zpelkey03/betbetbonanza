@@ -2,9 +2,22 @@ import { useEffect, useState } from 'react';
 import { getAuth, signOut  } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { fetchedUser } from './LogInComponent';
-
+import { fetchUpcomingNHLGames } from '../business/SportsApi';
 
 function UserDashboard() {
+
+    // Define a state to store the upcoming NHL games
+    const [upcomingNHLGames, setUpcomingNHLGames] = useState([]);
+
+    // Function to fetch upcoming NHL games when the button is clicked
+    const handleFetchUpcomingNHLGames = async () => {
+        try {
+        const games = await fetchUpcomingNHLGames(); // Call the function to fetch upcoming NHL games
+        setUpcomingNHLGames(games); // Update the state with the fetched games
+        } catch (error) {
+        console.error('Error fetching upcoming NHL games:', error);
+        }
+    };
 
     const navigate = useNavigate();
     
@@ -67,12 +80,34 @@ function UserDashboard() {
   </div>
 </nav>
 <p> Welcome back: {fetchedUser.firstName} </p>
-            <p> Welcome back: {fetchedUser.lastName} </p>
-
-            <p> Total Credits: {fetchedUser.credits} </p>
-
-            
-
+<p> Welcome back: {fetchedUser.lastName} </p>
+<p> Total Credits: {fetchedUser.credits} </p>
+<li>
+    <button onClick={handleFetchUpcomingNHLGames}>Fetch Upcoming NHL Games</button>
+</li>
+{upcomingNHLGames.length > 0 && (
+    <div>
+        <h2>Upcoming NHL Games:</h2>
+        <ul>
+            {upcomingNHLGames.map((game, index) => (
+                <li key={index}>
+                    {/* Render individual game details */}
+                    <p>{game.home_team} vs {game.away_team}</p>
+                    <p>Date: {game.commence_time}</p>
+                    {/* Additional details */}
+                    {game.draftkings_odds && (
+                        <p>
+                            DraftKings Odds:
+                            Home Team: {game.draftkings_odds.home_team_odds}, 
+                            Away Team: {game.draftkings_odds.away_team_odds}
+                        </p>
+                    )}
+                    {/* Add more details as needed */}
+                </li>
+            ))}
+        </ul>
+    </div>
+)}
         </div>
     
 
