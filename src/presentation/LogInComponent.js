@@ -12,7 +12,8 @@ import { fetchUserByEmail} from '../business/Login.js'; // Import the function t
 
 
 //TODO: Use react-toast for error checking db elements 
-
+ 
+let fetchedUser = null;
 function LogInComponent() {
 
 
@@ -20,6 +21,7 @@ function LogInComponent() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  
 
   //Used for Routing 
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ function LogInComponent() {
 
   const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
     // Signed up
 
     //Pass the first name and last name to the user's display name
@@ -76,9 +78,15 @@ function LogInComponent() {
     console.log(user.displayName);
     console.log("account successfully created!");
 
+    
+
+    fetchedUser = await fetchUserByEmail(user.email);
+
     // Add user data to the database
     addUserToDatabase(email, firstName, lastName)
     .then((userId) => {
+        
+
         console.log(`User data added to database with ID: ${userId}`);
         navigate('/dashboard'); 
     })
@@ -117,7 +125,7 @@ function LogInComponent() {
     toast.success('Succesfully signed in!', toastSettings);
     
     // Fetch user data based on the signed-in user's email
-    const fetchedUser = await fetchUserByEmail(user.email);
+    fetchedUser = await fetchUserByEmail(user.email);
     if (fetchedUser) {
       console.log('User data fetched:', fetchedUser);
       // Continue with redirection or any other logic
@@ -129,10 +137,6 @@ function LogInComponent() {
       // Handle the case where no user data is found (optional)
     }
 
-    //Force a 2 second delay before redirection so the toast.success message shows lol 
-    setTimeout(() => {
-      navigate('/dashboard');
-    }, 2000);
     
   })
   .catch((error) => {
@@ -279,3 +283,6 @@ function LogInComponent() {
 }
 
 export default LogInComponent;
+
+export {fetchedUser};
+
