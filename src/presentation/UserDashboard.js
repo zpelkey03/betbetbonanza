@@ -145,10 +145,9 @@ function UserDashboard() {
 
 
 
-        </div>
-    )
 
+        </div>
+    );
 }
 
-
-export default UserDashboard; 
+export default UserDashboard;
