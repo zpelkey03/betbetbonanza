@@ -1,116 +1,48 @@
 
-function VerticalNavbar() {
-
-
+const VerticalNavbar = ({ onSportButtonClick }) => {
     return (
-        <aside class="bg-gray-800 text-white w-64 min-h-screen p-4">
+        <aside className="bg-gray-800 text-white w-64 min-h-screen p-4">
             <nav>
-                <ul class="space-y-2">
-                    <li class="opcion-con-desplegable">
-                        <div class="flex items-center justify-between p-2 hover:bg-gray-700">
-                            <div class="flex items-center">
-                                <i class="fas fa-calendar-alt mr-2"></i>
-                                <span>Agenda</span>
+                <ul className="space-y-2">
+                    <li className="opcion-con-desplegable">
+                        <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                            <div className="flex items-center">
+                                <i className="fas fa-calendar-alt mr-2"></i>
+                                <button onClick={() => onSportButtonClick('hockey')}>View NHL Bets</button>
                             </div>
-                            <i class="fas fa-chevron-down text-xs"></i>
+                            <i className="fas fa-chevron-down text-xs"></i>
                         </div>
-                        <ul class="desplegable ml-4 hidden">
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Gestion de citas
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Polizas
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                    <li class="opcion-con-desplegable">
-                        <div class="flex items-center justify-between p-2 hover:bg-gray-700">
-                            <div class="flex items-center">
-                                <i class="fas fa-money-bill-wave mr-2"></i>
-                                <span>Contabilidad</span>
+                    <li className="opcion-con-desplegable">
+                        <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                            <div className="flex items-center">
+                                <i className="fas fa-money-bill-wave mr-2"></i>
+                                <button onClick={() => onSportButtonClick('basketball')}>View NBA Bets</button>
                             </div>
-                            <i class="fas fa-chevron-down text-xs"></i>
+                            <i className="fas fa-chevron-down text-xs"></i>
                         </div>
-                        <ul class="desplegable ml-4 hidden">
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Tratamientos
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Gastos
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Facturas
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                    <li class="opcion-con-desplegable">
-                        <div class="flex items-center justify-between p-2 hover:bg-gray-700">
-                            <div class="flex items-center">
-                                <i class="fas fa-chart-bar mr-2"></i>
-                                <span>Informes</span>
+                    <li className="opcion-con-desplegable">
+                        <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                            <div className="flex items-center">
+                                <i className="fas fa-chart-bar mr-2"></i>
+                                <button onClick={() => onSportButtonClick('soccer')}>View Soccer Bets</button>
                             </div>
-                            <i class="fas fa-chevron-down text-xs"></i>
+                            <i className="fas fa-chevron-down text-xs"></i>
                         </div>
-                        <ul class="desplegable ml-4 hidden">
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Presupuestos
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Informe médico
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                    <li class="opcion-con-desplegable">
-                        <div class="flex items-center justify-between p-2 hover:bg-gray-700">
-                            <div class="flex items-center">
-                                <i class="fas fa-file-alt mr-2"></i>
-                                <span>Documentación</span>
+                    <li className="opcion-con-desplegable">
+                        <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                            <div className="flex items-center">
+                                <i className="fas fa-chart-bar mr-2"></i>
+                                <button onClick={() => onSportButtonClick('profile')}>View Profile</button>
                             </div>
-                            <i class="fas fa-chevron-down text-xs"></i>
+                            <i className="fas fa-chevron-down text-xs"></i>
                         </div>
-                        <ul class="desplegable ml-4 hidden">
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Firmas pendientes
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="block p-2 hover:bg-gray-700 flex items-center">
-                                    <i class="fas fa-chevron-right mr-2 text-xs"></i>
-                                    Documentos
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </nav>
         </aside>
-
-    )
-
-
-}
-
+    );
+};
 export default VerticalNavbar; 
