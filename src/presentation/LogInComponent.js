@@ -78,15 +78,10 @@ function LogInComponent() {
     console.log(user.displayName);
     console.log("account successfully created!");
 
-    
-
-    fetchedUser = await fetchUserByEmail(user.email);
 
     // Add user data to the database
     addUserToDatabase(email, firstName, lastName)
     .then((userId) => {
-        
-
         console.log(`User data added to database with ID: ${userId}`);
         navigate('/dashboard'); 
     })
@@ -95,10 +90,10 @@ function LogInComponent() {
         // Handle error accordingly
     });
     
+    fetchedUser = await fetchUserByEmail(user.email);
 
     navigate('/dashboard'); 
 
-    // ...
     })
 
     .catch((error) => {
