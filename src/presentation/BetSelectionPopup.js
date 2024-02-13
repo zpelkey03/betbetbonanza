@@ -1,10 +1,28 @@
 import { fetchedUser } from './LogInComponent';
 import { useEffect, useState } from 'react';
 import { addBetToDatabase, updateUserCredits } from '../business/Bets';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, homeOrAway, closePopup }) => {
 
     const [selectedGame, setSelectedGame] = useState(null);
+    const navigate = useNavigate();
+
+    //Boiler plate code that tells Toast where and how long to show for 
+    const toastSettings = () => ({
+        position: 'top-right',
+        autoClose: 2000, // this means 4 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+
+    })
+
 
     useEffect(() => {
         let game = null;
@@ -54,7 +72,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
         if (sanitizedInput.length > 12) {
             return; // Ignore input if more than 12 characters
         }
-        
+
         //TODO: Fix the input limit 
         // Limit to two digits after the decimal point
         // const parts = sanitizedInput.split('.');
@@ -62,7 +80,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
         //     return; // Ignore input if more than two digits after the decimal point
         // }
 
-       
+
 
         // Update the state with the sanitized input
         setWagerAmount(sanitizedInput);
@@ -77,15 +95,15 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
             if (!isNaN(wager)) {
                 const potentialReturn = wager + (wager * odds / 100);
                 return potentialReturn.toFixed(2); // Assuming you want two decimal places
-              }
+            }
         } else {
             if (!isNaN(wager)) {
                 const potentialReturn = wager + Math.abs(wager / (odds / 100));
                 return potentialReturn.toFixed(2); // Assuming you want two decimal places
-              }
+            }
         }
         return '';
-     };
+    };
 
     if (!selectedGame) {
         return null; // or some loading state, or placeholder
@@ -95,22 +113,46 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
     const handleClose = () => {
         // Additional logic if needed
         closePopup(); // Call the closePopup function passed as a prop
-      };
+    };
 
-    const placeBet = async() => {
+    const placeBet = async () => {
+
+        let buttons = document.getElementsByClassName("betButton");
+            
+        let button = buttons[0];
+
         try {
             // Call the updateDatabase function to update the database
-            await addBetToDatabase(selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email);
-    
-            // Call the updateUser function to update the fetched user
-            await updateUserCredits(fetchedUser.email, fetchedUser.credits - wagerAmount);
-            
-            fetchedUser.credits -= wagerAmount;
-            // Close the popup
-            closePopup();
+            if (fetchedUser.credits >= wagerAmount) {
+                button.classList.add("inactive");
+                toast.success("Bet successfully placed!", toastSettings);
+                await addBetToDatabase(selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email);
+
+                // Call the updateUser function to update the fetched user
+                await updateUserCredits(fetchedUser.email, fetchedUser.credits - wagerAmount);
+
+                fetchedUser.credits -= wagerAmount;
+
+                setTimeout(() => {
+
+                    closePopup();
+                    button.classList.remove("inactive");
+                }, toastSettings().autoClose);
+
+
+
+
+            } else {
+                button.classList.remove("inactive");
+                toast.error("Not enough bet credits to place bet! Your balance: $" + fetchedUser.credits, toastSettings);
+            }
 
             // You can also add any additional logic related to placing the bet
         } catch (error) {
+            if (button.classList.contains("inactive")) {
+                button.classList.remove("inactive");
+            }
+
             // Handle any errors that occur during updating the database or user
             console.error('Error while placing bet:', error);
         }
@@ -139,14 +181,16 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
                         className="flex-1 px-3 py-2 text-center text-small focus:outline-none pl-3"
                         placeholder="$0.00"
                     />
-                    <button onClick={placeBet} className="px-3 py-4 border-l border-white border-opacity-25 bg-indigo-500 text-white w-1/2 relative font-bold">
+                    <button onClick={placeBet} className="betButton px-3 py-4 border-l border-white border-opacity-25 bg-indigo-500 text-white w-1/2 relative font-bold">
                         Place Bet
                         <p className="absolute py-2 bottom-0 left-0 font-normal text-indigo-200 text-xs text-center w-full">To return: ${calculateReturn()} </p>
                     </button>
                 </div>
 
-                
+
             </div>
+
+            <ToastContainer></ToastContainer>
         </div>
 
     )
