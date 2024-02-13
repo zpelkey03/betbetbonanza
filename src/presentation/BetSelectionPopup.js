@@ -46,9 +46,26 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
     const [wagerAmount, setWagerAmount] = useState('');
 
     const handleWagerChange = (event) => {
-        // Update the state with the entered wager amount
-    
-        setWagerAmount(event.target.value);
+        const input = event.target.value;
+
+        // Allow only numeric values and up to two digits after the decimal point
+        const sanitizedInput = input.replace(/[^0-9.]/g, ''); // Remove non-numeric characters except '.'
+
+        if (sanitizedInput.length > 12) {
+            return; // Ignore input if more than 12 characters
+        }
+        
+        //TODO: Fix the input limit 
+        // Limit to two digits after the decimal point
+        // const parts = sanitizedInput.split('.');
+        // if (parts[1] && parts[1].length > 2) {
+        //     return; // Ignore input if more than two digits after the decimal point
+        // }
+
+       
+
+        // Update the state with the sanitized input
+        setWagerAmount(sanitizedInput);
     };
 
     const calculateReturn = () => {
@@ -105,7 +122,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
                     />
                     <button className="px-3 py-4 border-l border-white border-opacity-25 bg-indigo-500 text-white w-1/2 relative font-bold">
                         Place Bet
-                        <p className="absolute py-2 bottom-0 left-0 font-normal text-xs text-center w-full">To return: ${calculateReturn()} </p>
+                        <p className="absolute py-2 bottom-0 left-0 font-normal text-indigo-200 text-xs text-center w-full">To return: ${calculateReturn()} </p>
                     </button>
                 </div>
 
