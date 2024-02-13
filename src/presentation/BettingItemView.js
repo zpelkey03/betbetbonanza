@@ -3,6 +3,7 @@ import BetSelectionPopup from './BetSelectionPopup';
 import { fetchedUser } from './LogInComponent';
 import ProfileComponent from './ProfileComponent';
 import { useEffect, useState } from 'react';
+import Images from './images/images';
 
 
 const BettingItemView = ({ sport }) => {
@@ -28,7 +29,9 @@ const BettingItemView = ({ sport }) => {
       };
 
 
-    // This can be updated in the future once our other API stuff is done 
+    // We can also load our images here
+    // This can be updated in the future once our other API stuff is done
+   
     useEffect(() => {
         if (sport === "hockey") {
             handleFetchUpcomingNHLGames();
@@ -62,17 +65,12 @@ const BettingItemView = ({ sport }) => {
     };
 
 
-    //The upcomingNHLGames will store all the NHL Games. 
-    //To map it I would use this: upcomingNHLGames.map((game, index)
-    //To get the home and way team I would use this: game.home_team and game.away_team
-
 
     let contentToDisplay;
 
     const generateContent = (game) => {
         return (
-
-
+            
             <div key={game.id} className="grid grid-cols-3 gap-0 sticky top-0 z-10 w-4/5 mx-auto mt-8">
                 {/* First Column */}
 
@@ -168,6 +166,7 @@ const BettingItemView = ({ sport }) => {
                     </div>
                 </div>
             </div>
+
         )
     }
 

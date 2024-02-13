@@ -7,14 +7,27 @@ import "./UserDashboard.css"
 import BettingItemView from './BettingItemView';
 import VerticalNavbar from './VerticalNavbar';
 import ProfileComponent from './ProfileComponent';
+import Images from './images/images';
 
 function UserDashboard() {
 
     //This will store the state of what button was presesed inside the VerticalNavbar component
     const [selectedSport, setSelectedSport] = useState(null);
+    const [imageToLoad, setImageToLoad] = useState('');
+
 
     const handleSportButtonClick = (sport) => {
         setSelectedSport(sport);
+
+        if (sport === "hockey") {
+            setImageToLoad(Images.hockey_image);
+        } else if (sport === "basketball") {
+            setImageToLoad(Images.bball_image);
+        } else if (sport === "soccer") {
+            setImageToLoad(Images.soccer_image);
+        } else {
+            setImageToLoad(Images.profile_supprt);
+        }
     };
 
 
@@ -34,6 +47,8 @@ function UserDashboard() {
             // An error happened.
         });
     }
+
+
 
 
     return (
@@ -73,8 +88,17 @@ function UserDashboard() {
                 {/* The list of bets */}
                 <div className="bg-white flex-1 p-4 ">
 
+                    {/* Load the image */}
+
+                    
+
                     {selectedSport && (
+                    <div>
+
+                    <img src={imageToLoad} className="max-w-full mb-4 ml-5 rounded-md shadow-md"/>
                     <BettingItemView sport={selectedSport} />
+
+                    </div> 
                     )}
 
                 </div>
