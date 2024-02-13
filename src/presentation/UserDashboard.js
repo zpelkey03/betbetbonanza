@@ -10,10 +10,6 @@ import ProfileComponent from './ProfileComponent';
 
 function UserDashboard() {
 
-    // Define a state to store the upcoming NHL games
-    const [upcomingNHLGames, setUpcomingNHLGames] = useState([]);
-
-
     //This will store the state of what button was presesed inside the VerticalNavbar component
     const [selectedSport, setSelectedSport] = useState(null);
 
@@ -21,17 +17,6 @@ function UserDashboard() {
         setSelectedSport(sport);
     };
 
-
-    // Function to fetch upcoming NHL games when the button is clicked
-    const handleFetchUpcomingNHLGames = async () => {
-        try {
-            const games = await fetchUpcomingNHLGames(); // Call the function to fetch upcoming NHL games
-            setUpcomingNHLGames(games); // Update the state with the fetched games
-        } catch (error) {
-            console.error('Error fetching upcoming NHL games:', error);
-        }
-    };
-    
 
     const navigate = useNavigate();
 
@@ -85,7 +70,7 @@ function UserDashboard() {
                 {/* Vertical Navbar */}
                 <VerticalNavbar onSportButtonClick={handleSportButtonClick}/>
 
-                {/* Everything else basically */}
+                {/* The list of bets */}
                 <div className="bg-white flex-1 p-4 ">
 
                     {selectedSport && (
