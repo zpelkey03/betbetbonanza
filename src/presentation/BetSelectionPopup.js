@@ -1,6 +1,6 @@
 import { fetchedUser } from './LogInComponent';
 import { useEffect, useState } from 'react';
-
+import { addBetToDatabase, updateUserCredits } from '../business/Bets';
 
 const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, homeOrAway, closePopup }) => {
 
@@ -97,6 +97,25 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
         closePopup(); // Call the closePopup function passed as a prop
       };
 
+    const placeBet = async() => {
+        try {
+            // Call the updateDatabase function to update the database
+            await addBetToDatabase(selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email);
+    
+            // Call the updateUser function to update the fetched user
+            await updateUserCredits(fetchedUser.email, fetchedUser.credits - wagerAmount);
+            
+            fetchedUser.credits -= wagerAmount;
+            // Close the popup
+            closePopup();
+
+            // You can also add any additional logic related to placing the bet
+        } catch (error) {
+            // Handle any errors that occur during updating the database or user
+            console.error('Error while placing bet:', error);
+        }
+    };
+
     return (
         <div className="fixed bottom-10 left-0 w-full flex justify-center z-50">
             <div class="bg-white rounded-md shadow-xl overflow-hidden max-w-md w-full sm:w-96 md:w-1/2 lg:w-2/3 xl:w-1/3 z-50">
@@ -120,7 +139,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
                         className="flex-1 px-3 py-2 text-center text-small focus:outline-none pl-3"
                         placeholder="$0.00"
                     />
-                    <button className="px-3 py-4 border-l border-white border-opacity-25 bg-indigo-500 text-white w-1/2 relative font-bold">
+                    <button onClick={placeBet} className="px-3 py-4 border-l border-white border-opacity-25 bg-indigo-500 text-white w-1/2 relative font-bold">
                         Place Bet
                         <p className="absolute py-2 bottom-0 left-0 font-normal text-indigo-200 text-xs text-center w-full">To return: ${calculateReturn()} </p>
                     </button>
