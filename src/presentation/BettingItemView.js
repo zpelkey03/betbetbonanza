@@ -74,19 +74,19 @@ const BettingItemView = ({ sport }) => {
             <div key={game.id} className="grid grid-cols-3 gap-0 sticky top-0 z-10 w-4/5 mx-auto mt-8">
                 {/* First Column */}
 
-                <div className="col-span-1 bg-gray-700">
+                <div className="col-span-1 bg-gray-900">
                     <div className="flex-none sm:flex justify-center items-center">
                         <div className="flex-auto justify-evenly text-center">
                             <div className="flex flex-col pt-3 pb-3">
                                 <div className="w-full flex-none text-1x1 text-white font-bold leading-none mt-2"> {"Game Lines: "}  </div>
 
-                                <div className="bg-gray-600 flex-auto text-white my-1">
+                                <div className="bg-gray-800 flex-auto text-white my-1">
                                     <span className="mr-3"> </span>
                                     <span className="mr-3"> </span>
 
                                 </div>
 
-                                <div className="bg-gray-700 flex-auto text-white my-1">
+                                <div className="bg-gray-900 flex-auto text-white my-1">
                                     <span className="mr-3">{"Money Line"} </span>
                                     <span className="mr-3"></span>
 
@@ -97,19 +97,19 @@ const BettingItemView = ({ sport }) => {
                 </div>
 
                 {/* Second Column */}
-                <div className="col-span-1 bg-gray-700">
+                <div className="col-span-1 bg-gray-900">
                     <div className="flex-none sm:flex justify-center items-center">
                         <div className="flex-auto justify-evenly text-center">
                             <div className="flex flex-col pt-3 pb-3">
                                 <div className="w-full flex-none text-1x1 text-gray-200 font-bold leading-none mt-2 mr-3"> &nbsp;  </div>
 
-                                <div className="bg-gray-600 flex-auto text-white font-bold my-1">
+                                <div className="bg-gray-800 flex-auto text-white font-bold my-1">
                                     <button onClick={() => handleBetSelection(game.id, "home")} className="mr-3">{game.home_team} </button>
                                     <span className="mr-3"> </span>
 
                                 </div>
 
-                                <div className="bg-gray-700 flex-auto text-white my-1">
+                                <div className="bg-gray-900 flex-auto text-white my-1">
                                     <span className="mr-3"></span>
 
                                     {
@@ -133,19 +133,19 @@ const BettingItemView = ({ sport }) => {
                 </div>
 
                 {/* Third Column */}
-                <div className="col-span-1 bg-gray-700">
+                <div className="col-span-1 bg-gray-900">
                     <div className="flex-none sm:flex justify-center items-center">
                         <div className="flex-auto justify-evenly text-center">
                             <div className="flex flex-col pt-3 pb-3">
                                 <div className="w-full flex-none text-1x1 text-white font-bold leading-none mt-2"> &nbsp;  </div>
 
-                                <div className="bg-gray-600 flex-auto text-white font-bold my-1">
+                                <div className="bg-gray-800 flex-auto text-white font-bold my-1">
                                     <span className="mr-3"></span>
                                     <button onClick={() => handleBetSelection(game.id, "away")} className="mr-3">{game.away_team} </button>
 
                                 </div>
 
-                                <div className="bg-gray-700 flex-auto text-white my-1">
+                                <div className="bg-gray-900 flex-auto text-white my-1">
                                     <span className="mr-3"></span>
                                     <span className="mr-3"></span>
                                     {
@@ -190,7 +190,7 @@ const BettingItemView = ({ sport }) => {
     }
 
     return (
-        <div style={{ maxHeight: "95%" }} className="h-screen overflow-y-auto bg-gray-400 rounded-lg p-4 m-4">
+        <div style={{ maxHeight: "95%" }} className="h-screen overflow-y-auto bg-gray-700 rounded-lg p-4 m-4">
             {contentToDisplay}
 
 

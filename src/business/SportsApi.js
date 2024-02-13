@@ -85,6 +85,8 @@ export const fetchUpcomingNBAGames = async () => {
             }
         });
         console.log("RESPONSE:", response);
+        const requestsUsed = response.headers['x-requests-used'];
+        console.log("Requests used:", requestsUsed);
         // Check if response data is defined and is an object
         if (response.data && typeof response.data === 'object') {
             const today = new Date(); // Current date
