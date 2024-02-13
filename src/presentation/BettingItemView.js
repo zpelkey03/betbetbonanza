@@ -11,15 +11,21 @@ const BettingItemView = ({ sport }) => {
     const [upcomingNBAGames, setUpcomingNBAGames] = useState([]);
 
     //This code will handle which bet was selected
-
     const [selectedGame, setSelectedGame] = useState(null);
     const [homeOrAway, setHomeOrAway] = useState(null);
 
     const handleBetSelection = (gameId, team) => {
         setSelectedGame(gameId);
         setHomeOrAway(team);
+        setPopupOpen(true);
     };
 
+    //Handle the bet selection popup
+    const [isPopupOpen, setPopupOpen] = useState(false);
+
+    const closePopup = () => {
+        setPopupOpen(false);
+      };
 
 
     // This can be updated in the future once our other API stuff is done 
@@ -179,7 +185,6 @@ const BettingItemView = ({ sport }) => {
         contentToDisplay = (
             <div>
                  <ProfileComponent></ProfileComponent>
-                 <BetSelectionPopup></BetSelectionPopup>
             </div>
            
         )
@@ -190,8 +195,8 @@ const BettingItemView = ({ sport }) => {
             {contentToDisplay}
 
 
-            {selectedGame && homeOrAway && (
-                <BetSelectionPopup gameId={selectedGame} sport={sport} upcomingNHLGames={upcomingNHLGames} upcomingNBAGames={upcomingNBAGames} homeOrAway={homeOrAway} />
+            {selectedGame && homeOrAway && isPopupOpen && (
+                <BetSelectionPopup gameId={selectedGame} sport={sport} upcomingNHLGames={upcomingNHLGames} upcomingNBAGames={upcomingNBAGames} homeOrAway={homeOrAway} closePopup={closePopup} />
             )}
 
 
