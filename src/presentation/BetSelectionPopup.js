@@ -118,12 +118,12 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
     const placeBet = async () => {
 
         let buttons = document.getElementsByClassName("betButton");
-            
+
         let button = buttons[0];
 
         try {
             // Call the updateDatabase function to update the database
-            if (fetchedUser.credits >= wagerAmount) {
+            if (fetchedUser.credits >= wagerAmount && wagerAmount > 0) {
                 button.classList.add("inactive");
                 toast.success("Bet successfully placed!", toastSettings);
                 await addBetToDatabase(selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email);
@@ -144,7 +144,14 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
 
             } else {
                 button.classList.remove("inactive");
-                toast.error("Not enough bet credits to place bet! Your balance: $" + fetchedUser.credits, toastSettings);
+
+                if (wagerAmount <= 0) {
+                    toast.error("Must place a bet greater than $0.00", toastSettings);
+
+                } else {
+
+                    toast.error("Not enough bet credits to place bet! Your balance: $" + fetchedUser.credits, toastSettings);
+                }
             }
 
             // You can also add any additional logic related to placing the bet
