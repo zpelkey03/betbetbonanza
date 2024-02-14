@@ -69,16 +69,16 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
         // Allow only numeric values and up to two digits after the decimal point
         const sanitizedInput = input.replace(/[^0-9.]/g, ''); // Remove non-numeric characters except '.'
 
-        if (sanitizedInput.length > 12) {
-            return; // Ignore input if more than 12 characters
-        }
-
-        //TODO: Fix the input limit 
-        // Limit to two digits after the decimal point
-        // const parts = sanitizedInput.split('.');
-        // if (parts[1] && parts[1].length > 2) {
-        //     return; // Ignore input if more than two digits after the decimal point
+        // if (sanitizedInput.length > 12) {
+        //     return; // Ignore input if more than 12 characters
         // }
+
+        // TODO: Fix the input limit 
+        // Limit to two digits after the decimal point
+        const parts = sanitizedInput.split('.');
+        if (parts[1] && parts[1].length > 2) {
+            return; // Ignore input if more than two digits after the decimal point
+        }
 
 
 
