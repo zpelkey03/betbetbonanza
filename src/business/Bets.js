@@ -6,13 +6,14 @@ const db = getFirestore(firebaseApp);
 
 
 // Function to add a bet to the database
-export const addBetToDatabase = async (game, team, wagerAmount, returnAmount, userEmail) => {
+export const addBetToDatabase = async (sport, game, team, wagerAmount, returnAmount, userEmail) => {
     try {
         // Replace 'bets' with the name of your collection
         const betsCollection = collection(db, 'bets');
 
         // Add a new document with the provided data
         await addDoc(betsCollection, {
+            sport: sport, 
             game: game,
             team: team,
             wagerAmount: wagerAmount,

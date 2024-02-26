@@ -1,6 +1,7 @@
 import { fetchedUser } from './LogInComponent';
 import { useEffect, useState } from 'react';
 import { getAllBetsByUserEmail } from '../business/Bets'; // Assuming you've named the file containing the function getAllBetsByUserEmail as BetsUtils.js
+import UserBetsView from './UserBetsView';
 
 function ProfileComponent() {
     const [userBets, setUserBets] = useState([]);
@@ -42,13 +43,12 @@ function ProfileComponent() {
                 <ul className="list-disc ml-6">
                     {userBets.map((bet, index) => (
                         <li key={index} className="text-gray-300">
-                            {/* Display bet details here */}
-                            <p>{`Game: ${bet.game}`}</p>
-                            <p>{`Team: ${bet.team}`}</p>
-                            <p>{`Wager Amount: ${bet.wagerAmount}`}</p>
-                            <p>{`Return Amount: ${bet.returnAmount}`}</p>
-                            {/* Add more details as needed */}
+
+                            {/* Delete the above stuff and instead call UserBetsView cpompoent */}
+
+                            <UserBetsView gameInformation={bet}></UserBetsView>
                         </li>
+
                     ))}
                 </ul>
             </div>

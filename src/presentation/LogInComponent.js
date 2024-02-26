@@ -254,11 +254,11 @@ function LogInComponent() {
   return (
     <div className="bg-white dark:bg-gray-900">
       <div className="flex justify-center h-screen">
-        <div className="hidden bg-cover lg:block lg:w-2/3" style={{ backgroundImage: `url(${BBBLoginPhoto})` }}>
+        <div className="hidden bg-cover bg-center lg:block lg:w-2/3" style={{ backgroundImage: `url(${BBBLoginPhoto})` }}>
           <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
             <div>
-              <h2 className="text-4xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">Welcome to BetBetBonanza</h2>
-              <p className="max-w-xl mt-3 text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">The Thrill of Betting, The Freedom of Fake Money.</p>
+              {/* <h2 className="text-4xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">Welcome to BetBetBonanza</h2> */}
+              {/* <p className="max-w-xl mt-3 text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">The Thrill of Betting, The Freedom of Fake Money.</p> */}
             </div>
           </div>
         </div>
