@@ -65,25 +65,30 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
 
     const handleWagerChange = (event) => {
         const input = event.target.value;
-
+    
         // Allow only numeric values and up to two digits after the decimal point
         const sanitizedInput = input.replace(/[^0-9.]/g, ''); // Remove non-numeric characters except '.'
-
-        // if (sanitizedInput.length > 12) {
-        //     return; // Ignore input if more than 12 characters
-        // }
-
-        // TODO: Fix the input limit 
-        // Limit to two digits after the decimal point
-        const parts = sanitizedInput.split('.');
-        if (parts[1] && parts[1].length > 2) {
-            return; // Ignore input if more than two digits after the decimal point
+    
+        // Limit the total input length to 12 characters
+        if (sanitizedInput.length > 12) {
+            return; // Ignore input if more than 12 characters
         }
-
-
-
+    
+        // Limit to one decimal point
+        const decimalCheck = sanitizedInput.split('.');
+        if (decimalCheck.length > 2) {
+            return; // Ignore input if more than one decimal point
+        }
+    
+        // Limit to two digits after the decimal point
+        if (decimalCheck[1] && decimalCheck[1].length > 2) {
+            decimalCheck[1] = decimalCheck[1].substring(0, 2); // Trim digits after the second decimal place
+        }
+    
+        const finalInput = decimalCheck.join('.');
+    
         // Update the state with the sanitized input
-        setWagerAmount(sanitizedInput);
+        setWagerAmount(finalInput);
     };
 
     const calculateReturn = () => {
