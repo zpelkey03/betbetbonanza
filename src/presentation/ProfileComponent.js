@@ -39,8 +39,8 @@ function ProfileComponent() {
 
             {/* Display user's bets */}
             <div className="mt-4">
-                <h2 className="text-xl font-semibold text-gray-200">Your Bets</h2>
-                <ul className="list-disc ml-6">
+                <h2 className="text-xl font-bold text-gray-200 mb-5 mt-5">Your Bets</h2>
+                <ul className="list-none ml-6">
                     {userBets.map((bet, index) => (
                         <li key={index} className="text-gray-300">
 
