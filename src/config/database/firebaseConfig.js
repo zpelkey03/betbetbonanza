@@ -3,7 +3,7 @@
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-    apiKey: "",
+    apiKey: "AIzaSyAjtblM4O1zdNcWibaSuqg69Y4rokR6rAo",
     authDomain: "betbetbonanza.firebaseapp.com",
     projectId: "betbetbonanza",
     storageBucket: "betbetbonanza.appspot.com",
