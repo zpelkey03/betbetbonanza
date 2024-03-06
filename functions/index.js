@@ -1,57 +1,40 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
-
-
-const logger = require('firebase-functions/logger');
-const {onSchedule} = require('firebase-functions/v2/scheduler');
-
-
+// Import necessary modules
+const axios = require('axios');
 const admin = require('firebase-admin');
+const functions = require('firebase-functions');
+const logger = require('firebase-functions/logger');
+
+// Initialize Firebase Admin SDK
 admin.initializeApp();
 
-const database = admin.database();
-const gamesRef = database.ref('games');
-
-// Example placeholder entry
-gamesRef.child('exampleGameId').set({
-  homeTeam: 'Team A',
-  awayTeam: 'Team B',
-  homeScore: 0,
-  awayScore: 0,
-  completed: false,
-  lastUpdate: new Date().toISOString(),
-});
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
-
-exports.updateGameResults = onSchedule('* * * * *', async (event) => {
+// Scheduled function to update game results every 4 hours
+exports.updateGameResults = functions.pubsub.schedule('every 4 hours').onRun(async (context) => {
   try {
     const apiKey = '9d0bd4a50c2dcbe41687efcac4ae9dea'; // Replace with your actual API key
     const sport = 'icehockey_nhl';
     const daysFrom = 1;
 
+    // Construct API URL
     const apiUrl = `https://api.the-odds-api.com/v4/sports/${sport}/scores/?daysFrom=${daysFrom}&apiKey=${apiKey}`;
+    
+    // Fetch data from the API
     const response = await axios.get(apiUrl);
     const games = response.data;
 
+    // Reference to 'games' node in Firebase Realtime Database
     const database = admin.database();
     const gamesRef = database.ref('games');
 
+    // Iterate over each game and update the database
     games.forEach((game) => {
       if (game.completed) {
         const gameId = game.id;
         const homeTeam = game.home_team;
         const awayTeam = game.away_team;
-        const homeScore = game.scores.find((score) =>
-          score.name === homeTeam).score;
-        const awayScore = game.scores.find((score) =>
-          score.name === awayTeam).score;
+        
+        // Finding scores might require adapting based on the actual response structure
+        const homeScore = game.scores.find((score) => score.name === homeTeam)?.score;
+        const awayScore = game.scores.find((score) => score.name === awayTeam)?.score;
 
         // Update the Realtime Database with game details
         gamesRef.child(gameId).set({
@@ -66,10 +49,7 @@ exports.updateGameResults = onSchedule('* * * * *', async (event) => {
     });
 
     logger.log('Game results updated successfully');
-    return null;
   } catch (error) {
-    console.error('Error updating game results:', error);
-    return null;
+    logger.error('Error updating game results:', error);
   }
 });
-
