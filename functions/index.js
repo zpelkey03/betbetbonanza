@@ -11,10 +11,26 @@
 const logger = require('firebase-functions/logger');
 const {onSchedule} = require('firebase-functions/v2/scheduler');
 
+
+const admin = require('firebase-admin');
+admin.initializeApp();
+
+const database = admin.database();
+const gamesRef = database.ref('games');
+
+// Example placeholder entry
+gamesRef.child('exampleGameId').set({
+  homeTeam: 'Team A',
+  awayTeam: 'Team B',
+  homeScore: 0,
+  awayScore: 0,
+  completed: false,
+  lastUpdate: new Date().toISOString(),
+});
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
 
-exports.updateGameResults = onSchedule('every 4 hours', async (event) => {
+exports.updateGameResults = onSchedule('* * * * *', async (event) => {
   try {
     const apiKey = '9d0bd4a50c2dcbe41687efcac4ae9dea'; // Replace with your actual API key
     const sport = 'icehockey_nhl';
