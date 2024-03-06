@@ -42,6 +42,8 @@ const UserBetsView = ({ gameInformation }) => {
                             <br />
                             <span className="mr-3">{"Wager Amount: $" + gameInformation.wagerAmount}</span>
                             <br />
+                            <span className="mr-3">{"Return Amount: $" + gameInformation.returnAmount}</span>
+                            <br />
                             <span className="mr-3">{formattedDate}</span>
                             <br />
                             <span className="mr-3">{gameStatus }</span>

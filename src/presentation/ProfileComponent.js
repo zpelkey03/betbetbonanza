@@ -33,7 +33,9 @@ function ProfileComponent() {
                         <div className="flex flex-col w-full">
                             <div className="w-full flex-none text-1x1 text-gray-200 font-bold leading-none mt-2">{fetchedUser.firstName + " " + fetchedUser.lastName}</div>
                             <div className="flex-auto text-gray-400 my-1">
-                                <span className="mr-3">{fetchedUser.email}</span>
+                                <br></br>
+                                <br></br>
+                                <span className="mr-3">{"Email: " + fetchedUser.email}</span>
                             </div>
                         </div>
 
