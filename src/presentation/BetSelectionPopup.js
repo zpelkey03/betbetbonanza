@@ -131,7 +131,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
             if (fetchedUser.credits >= wagerAmount && wagerAmount > 0) {
                 button.classList.add("inactive");
                 toast.success("Bet successfully placed!", toastSettings);
-                await addBetToDatabase(sport, selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email);
+                await addBetToDatabase(sport, selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email, false);
 
                 // Call the updateUser function to update the fetched user
                 await updateUserCredits(fetchedUser.email, fetchedUser.credits - wagerAmount);

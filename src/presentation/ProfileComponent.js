@@ -23,14 +23,26 @@ function ProfileComponent() {
 
     return (
         <div className="flex flex-col sticky top-0 z-10 w-4/5 mx-auto mt-8">
-            <div className="bg-gray-900 border border-gray-800 shadow-lg rounded-2xl p-4">
+
+
+            <div className="bg-gray-900 border border-gray-800 shadow-lg rounded-2xl p-4 relative mb-2">
+                {/* Main content */}
                 <div className="flex-none sm:flex">
-                    <div className="flex-auto sm:ml-5 justify-evenly">
-                        <div className="flex flex-col">
+                    <div className="flex-auto sm:ml-5 justify-evenly flex w-95p">
+                        {/* Left side content */}
+                        <div className="flex flex-col w-full">
                             <div className="w-full flex-none text-1x1 text-gray-200 font-bold leading-none mt-2">{fetchedUser.firstName + " " + fetchedUser.lastName}</div>
                             <div className="flex-auto text-gray-400 my-1">
                                 <span className="mr-3">{fetchedUser.email}</span>
-                                <span className="mr-3">{"Total Credits: " + fetchedUser.credits}</span>
+                            </div>
+                        </div>
+
+                        {/* Right side box */}
+                        <div className="flex-none bg-gray-600 h-95p w-5p rounded-2xl flex flex-col items-center justify-center text-white p-5">
+                            <p className="font-bold text-lg">Total Credits:</p>
+                            <div className="text-2xl font-bold text-green-600">
+                                <span className="mr-3">{"$" + fetchedUser.credits}</span>
+
                             </div>
                         </div>
                     </div>
@@ -41,15 +53,15 @@ function ProfileComponent() {
             <div className="mt-4">
                 <h2 className="text-xl font-bold text-gray-200 mb-5 mt-5">Your Bets</h2>
                 <ul className="list-none ml-6">
-                    {userBets.map((bet, index) => (
-                        <li key={index} className="text-gray-300">
-
-                            {/* Delete the above stuff and instead call UserBetsView cpompoent */}
-
-                            <UserBetsView gameInformation={bet}></UserBetsView>
-                        </li>
-
-                    ))}
+                    {
+                        // Sort the userBets by the newest date first! 
+                        userBets.sort((a, b) => new Date(b.game.commence_time) - new Date(a.game.commence_time))
+                            .map((bet, index) => (
+                                <li key={index} className="text-gray-300">
+                                    <UserBetsView gameInformation={bet}></UserBetsView>
+                                </li>
+                            ))
+                    }
                 </ul>
             </div>
         </div>
