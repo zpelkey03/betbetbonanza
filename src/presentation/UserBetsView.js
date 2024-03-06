@@ -4,10 +4,6 @@ const UserBetsView = ({ gameInformation }) => {
 
     const { away_team, home_team, id, commence_time } = gameInformation.game;
 
-    if (!gameInformation.wagerAmount.includes(".")) {
-        gameInformation.wagerAmount = gameInformation.wagerAmount + ".00"; 
-    }
-
     return (
 
         <div className="bg-gray-900 border border-gray-800 shadow-lg rounded-2xl p-4 relative mb-2">
@@ -22,7 +18,7 @@ const UserBetsView = ({ gameInformation }) => {
                         <div className="flex-auto text-gray-400 my-1">
                             <span className="mr-3">{"Game: " + home_team + " vs " + away_team + " (" + gameInformation.sport + ")"}</span>
                             <br />
-                            <span className="mr-3">{"Wager Amount: $" + gameInformation.wagerAmount}</span>
+                            <span className="mr-3">{"Wager Amount: - FIX FORMAT: " + gameInformation.wagerAmount}</span>
                             <br />
                             <span className="mr-3">{"Date - FIX FORMAT: " + commence_time}</span>
                         </div>
