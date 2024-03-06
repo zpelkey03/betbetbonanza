@@ -95,7 +95,8 @@ function UserDashboard() {
                     {selectedSport && (
                     <div>
 
-                    <img src={imageToLoad} className="max-w-full mb-4 ml-5 rounded-md shadow-md"/>
+<img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md"/>
+
                     <BettingItemView sport={selectedSport} />
 
                     </div> 

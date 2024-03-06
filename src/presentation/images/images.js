@@ -3,7 +3,7 @@
 import {default as hockey_image} from './hockeyImage.png'
 import {default as bball_image} from './basketballImage.png'
 import {default as soccer_image} from './soccerImage.png'
-import {default as profile_support} from './profileSupport.jpg'
+import {default as profile_support} from './profileSupport.png'
 
 
 const Images={
