@@ -114,14 +114,17 @@ const BettingItemView = ({ sport }) => {
 
                                     {
                                         (() => {
-                                            // This code just adds a + to the odds which are not favoured to win
-
-                                            if (game.draftkings_odds.home_team_odds > 0) {
-                                                return <button onClick={() => handleBetSelection(game.id, "home")} className="mr-3">{"+" + game.draftkings_odds.home_team_odds}</button>;
+                                            // Ensure draftkings_odds is not null before trying to access its properties
+                                            if (game.draftkings_odds) {
+                                                if (game.draftkings_odds.home_team_odds > 0) {
+                                                    return <button onClick={() => handleBetSelection(game.id, "home")} className="mr-3">{"+" + game.draftkings_odds.home_team_odds}</button>;
+                                                } else {
+                                                    return <button onClick={() => handleBetSelection(game.id, "home")} className="mr-3"> {game.draftkings_odds.home_team_odds} </button>;
+                                                }
                                             } else {
-                                                return <button onClick={() => handleBetSelection(game.id, "home")} className="mr-3"> {game.draftkings_odds.home_team_odds} </button>
+                                                // Return some default UI or handle the missing odds case here
+                                                return <span>No odds available</span>;
                                             }
-
                                         })()
                                     }
 
@@ -150,14 +153,17 @@ const BettingItemView = ({ sport }) => {
                                     <span className="mr-3"></span>
                                     {
                                         (() => {
-                                            // This code just adds a + to the odds which are not favoured to win
-
-                                            if (game.draftkings_odds.away_team_odds > 0) {
-                                                return <button onClick={() => handleBetSelection(game.id, "away")} className="mr-3">{"+" + game.draftkings_odds.away_team_odds}</button>;
+                                            // Same check for away_team_odds
+                                            if (game.draftkings_odds) {
+                                                if (game.draftkings_odds.away_team_odds > 0) {
+                                                    return <button onClick={() => handleBetSelection(game.id, "away")} className="mr-3">{"+" + game.draftkings_odds.away_team_odds}</button>;
+                                                } else {
+                                                    return <button onClick={() => handleBetSelection(game.id, "away")} className="mr-3"> {game.draftkings_odds.away_team_odds} </button>;
+                                                }
                                             } else {
-                                                return <button onClick={() => handleBetSelection(game.id, "away")} className="mr-3"> {game.draftkings_odds.away_team_odds} </button>
+                                                // Return some default UI or handle the missing odds case here
+                                                return <span>No odds available</span>;
                                             }
-
                                         })()
                                     }
                                 </div>
