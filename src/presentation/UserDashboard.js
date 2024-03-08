@@ -36,47 +36,72 @@ function UserDashboard() {
 
 
     const [selectedSport, setSelectedSport] = useState("main"); // default to main page
-  const [imageToLoad, setImageToLoad] = useState('');
+    const [imageToLoad, setImageToLoad] = useState('');
 
-  useEffect(() => {
-    switch (selectedSport) {
-      case "hockey":
-        setImageToLoad(Images.hockey_image);
-        break;
-      case "basketball":
-        setImageToLoad(Images.bball_image);
-        break;
-      // Add other cases as needed
-      default:
-        setImageToLoad(null);
-    }
-  }, [selectedSport]);
+    useEffect(() => {
+        switch (selectedSport) {
+            case "hockey":
+                setImageToLoad(Images.hockey_image);
+                break;
+            case "basketball":
+                setImageToLoad(Images.bball_image);
+                break;
+            case "soccer":
+                setImageToLoad(Images.soccer_image);
+                break;
+            case "profile":
+                setImageToLoad(Images.profile_supprt);
+                break; 
+            default:
+                setImageToLoad(null);
+        }
+    }, [selectedSport]);
 
     const navigate = useNavigate();
 
     const renderContent = () => {
+        // Check if the selected sport is not 'main', implying it's either a sport or 'profile'
+        const isSportOrProfile = selectedSport !== "main";
+    
+        // Handle rendering the MainPageComponent separately
         if (selectedSport === "main") {
           return <MainPageComponent />;
-        } else {
-          return (
-            <div>
-              {imageToLoad && <img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md"/>}
-              <BettingItemView sport={selectedSport} />
-            </div>
-          );
         }
+    
+        // For all other cases, return the appropriate content with the image included
+        return (
+          <div>
+            {isSportOrProfile && imageToLoad && (
+              <img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md" />
+            )}
+            {/* Render BettingItemView or ProfileComponent based on selectedSport */}
+            {selectedSport === "profile" ? <ProfileComponent /> : <BettingItemView sport={selectedSport} />}
+          </div>
+        );
       };
-
-
+    
       return (
         <div>
-          <DashboardNavbar> </DashboardNavbar>
+          {/* NavBar and other components remain unchanged */}
+          <DashboardNavbar></DashboardNavbar>
           <div className="flex h-full">
-            <VerticalNavbar onSportButtonClick={setSelectedSport}/>
-
+            <VerticalNavbar onSportButtonClick={(sport) => {
+              setSelectedSport(sport);
+              // Update imageToLoad based on the sport selected
+              switch(sport) {
+                case "hockey":
+                  setImageToLoad(Images.hockey_image);
+                  break;
+                case "basketball":
+                  setImageToLoad(Images.bball_image);
+                  break;
+                // Include other cases as necessary
+                default:
+                  setImageToLoad(null); // No image for 'main' or invalid sport
+              }
+            }}/>
             <div className="bg-white flex-1 p-4">
               {renderContent()}
-              
             </div>
           </div>
         </div>

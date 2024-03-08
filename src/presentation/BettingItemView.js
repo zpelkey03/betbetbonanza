@@ -36,13 +36,10 @@ const BettingItemView = ({ sport }) => {
     useEffect(() => {
         if (sport === "hockey") {
             handleFetchUpcomingNHLGames();
-        }
-    }, [sport]);
-
-    useEffect(() => {
-        if (sport === "basketball") {
+        } else if (sport === "basketball") {
             handleFetchUpcomingNBAGames();
         }
+        // Add else-if blocks for other sports as needed
     }, [sport]);
 
 
@@ -67,7 +64,7 @@ const BettingItemView = ({ sport }) => {
 
 
 
-    let contentToDisplay;
+    
 
     const generateContent = (game) => {
         return (
@@ -177,7 +174,7 @@ const BettingItemView = ({ sport }) => {
         )
     }
 
-
+    let contentToDisplay;
     if (sport === "hockey") {
 
         contentToDisplay = upcomingNHLGames.map((game) => generateContent(game));
@@ -187,19 +184,6 @@ const BettingItemView = ({ sport }) => {
 
     } else if (sport === "soccer") {
         
-    } else if (sport === "profile") {
-        contentToDisplay = (
-            <div>
-                 <ProfileComponent></ProfileComponent>
-            </div>
-           
-        )
-    } else {
-        contentToDisplay = (
-            <div>
-                <MainPageComponent></MainPageComponent>
-            </div>
-        )
     }
 
     return (
