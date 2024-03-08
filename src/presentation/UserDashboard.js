@@ -9,117 +9,106 @@ import VerticalNavbar from './VerticalNavbar';
 import ProfileComponent from './ProfileComponent';
 import Images from './images/images';
 import MainPageComponent from './MainPageComponent';
+import DashboardNavbar from './DashboardNavbar';
 
 function UserDashboard() {
 
-    //This will store the state of what button was presesed inside the VerticalNavbar component
-    const [selectedSport, setSelectedSport] = useState(null);
+    const [selectedSport, setSelectedSport] = useState("main"); // default to main page
     const [imageToLoad, setImageToLoad] = useState('');
 
-
-    const handleSportButtonClick = (sport) => {
+    const handleSportSelect = (sport) => {
         setSelectedSport(sport);
-
-        if (sport === "hockey") {
-            setImageToLoad(Images.hockey_image);
-        } else if (sport === "basketball") {
-            setImageToLoad(Images.bball_image);
-        } else if (sport === "soccer") {
-            setImageToLoad(Images.soccer_image);
-        } else if (sport === "profile") {
-            setImageToLoad(Images.profile_supprt);
-        } else {
-            setImageToLoad(null);
+        switch (sport) {
+            case "hockey":
+                setImageToLoad(Images.hockey_image);
+                break;
+            case "basketball":
+                setImageToLoad(Images.bball_image);
+                break;
+            case "soccer":
+                setImageToLoad(Images.soccer_image);
+                break;
+            default:
+                setImageToLoad(null);
         }
     };
 
-
     const navigate = useNavigate();
 
-    // console.log("DASHBOARD FETCHED USER:", fetchedUser); 
+    //Renders the content re-written
+    //Much simpler and better logic 
+    const renderContent = () => {
 
-    const signOutClicked = () => {
+        //The "main" is simply the 3 "Featured Sports" that are rendered when you first log in! 
+        const isSportOrProfile = selectedSport !== "main";
 
-        const auth = getAuth();
+        //Since this is not a sport, the BetterItemView component should not be run
+        //That is why we do a seperate if/else for this part
+        if (selectedSport === "main") {
+            return <MainPageComponent onSportSelect={handleSportSelect} />;
+        }
 
-        signOut(auth).then(() => {
-            // Sign-out successful.
+        //In all other cases, return the correct content witch also includes an image!
+        return (
+            <div>
 
-            navigate('/')
-        }).catch((error) => {
-            // An error happened.
-        });
-    }
+                {isSportOrProfile && imageToLoad && (
+                    <img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md" />
+                )}
 
+                {/* Render BettingItemView or ProfileComponent based on selectedSport.
+            Ternary operator is used instead of regular if/else so that it doesnt
+            have to be moved outside of the renderContent code block */}
 
+                {selectedSport === "profile" ? <ProfileComponent /> : <BettingItemView sport={selectedSport} />}
 
+            </div>
+        );
+    };
 
     return (
         <div data-testid="UserDashboard">
 
-            {/*Nav bar code */}
 
-            <nav className="bg-gray-900 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Betbetbonanza</span>
-                    </a>
-                    <button data-collapse-toggle="navbar-multi-level" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-multi-level" aria-expanded="false">
-                        <span className="sr-only">Open main menu</span>
-                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-                        </svg>
-                    </button>
-                    <div className="hidden w-full md:block md:w-auto" id="navbar-multi-level">
-                        <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-
-                            <li>
-                                <button onClick={signOutClicked} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Sign out</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            {/* Call the horizontal Dashboard component which shows at the top of the page ALL the time*/}
+            <DashboardNavbar></DashboardNavbar>
 
 
             <div className="flex h-full">
 
-                {/* Vertical Navbar */}
-                <VerticalNavbar onSportButtonClick={handleSportButtonClick}/>
+                {/* Vertical navbar is called here, always shows as well*/}
 
-                {/* The list of bets */}
-                <div className="bg-white flex-1 p-4 ">
+                <VerticalNavbar onSportButtonClick={(sport) => {
+                    setSelectedSport(sport);
 
-                    {/* Load the image */}
+                    // Update imageToLoad based on the sport selected
+                    switch (sport) {
+                        case "hockey":
+                            setImageToLoad(Images.hockey_image);
+                            break;
+                        case "basketball":
+                            setImageToLoad(Images.bball_image);
+                            break;
+                        case "soccer":
+                            setImageToLoad(Images.soccer_image);
+                            break;
+                        case "profile":
+                            setImageToLoad(Images.profile_supprt);
+                            break; 
+                        default:
 
-                    
+                            //The 'main' doesnt have an image, so there shouldnt be an image set at all 
+                            setImageToLoad(null);
+                    }
 
-                    {selectedSport && (
-                    <div>
+                }} />
+                <div className="bg-white flex-1 p-4">
 
-                    <img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md"/>
-                    
-                    
-                    <BettingItemView sport={selectedSport} />
-
-                    </div> 
-                    )}
-
-                    {/*Default component that shows when you login*/}
-                    {!selectedSport && (
-
-                        <div>
-                            <BettingItemView sport={selectedSport} />
-                        </div> 
-
-
-
-                    )}
+                    {/* Call the render content here! */}
+                    {renderContent()}
 
                 </div>
             </div>
-
         </div>
     );
 }
