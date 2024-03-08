@@ -16,8 +16,9 @@ function UserDashboard() {
     const [selectedSport, setSelectedSport] = useState("main"); // default to main page
     const [imageToLoad, setImageToLoad] = useState('');
 
-    useEffect(() => {
-        switch (selectedSport) {
+    const handleSportSelect = (sport) => {
+        setSelectedSport(sport);
+        switch (sport) {
             case "hockey":
                 setImageToLoad(Images.hockey_image);
                 break;
@@ -27,13 +28,10 @@ function UserDashboard() {
             case "soccer":
                 setImageToLoad(Images.soccer_image);
                 break;
-            case "profile":
-                setImageToLoad(Images.profile_supprt);
-                break;
             default:
                 setImageToLoad(null);
         }
-    }, [selectedSport]);
+    };
 
     const navigate = useNavigate();
 
@@ -47,7 +45,7 @@ function UserDashboard() {
         //Since this is not a sport, the BetterItemView component should not be run
         //That is why we do a seperate if/else for this part
         if (selectedSport === "main") {
-            return <MainPageComponent />;
+            return <MainPageComponent onSportSelect={handleSportSelect} />;
         }
 
         //In all other cases, return the correct content witch also includes an image!
@@ -89,7 +87,12 @@ function UserDashboard() {
                         case "basketball":
                             setImageToLoad(Images.bball_image);
                             break;
-
+                        case "soccer":
+                            setImageToLoad(Images.soccer_image);
+                            break;
+                        case "profile":
+                            setImageToLoad(Images.profile_supprt);
+                            break; 
                         default:
 
                             //The 'main' doesnt have an image, so there shouldnt be an image set at all 
