@@ -13,28 +13,6 @@ import DashboardNavbar from './DashboardNavbar';
 
 function UserDashboard() {
 
-    // //This will store the state of what button was presesed inside the VerticalNavbar component
-    // const [selectedSport, setSelectedSport] = useState(null);
-    // const [imageToLoad, setImageToLoad] = useState('');
-
-
-    // const handleSportButtonClick = (sport) => {
-    //     setSelectedSport(sport);
-
-    //     if (sport === "hockey") {
-    //         setImageToLoad(Images.hockey_image);
-    //     } else if (sport === "basketball") {
-    //         setImageToLoad(Images.bball_image);
-    //     } else if (sport === "soccer") {
-    //         setImageToLoad(Images.soccer_image);
-    //     } else if (sport === "profile") {
-    //         setImageToLoad(Images.profile_supprt);
-    //     } else {
-    //         setImageToLoad(null);
-    //     }
-    // };
-
-
     const [selectedSport, setSelectedSport] = useState("main"); // default to main page
     const [imageToLoad, setImageToLoad] = useState('');
 
@@ -51,7 +29,7 @@ function UserDashboard() {
                 break;
             case "profile":
                 setImageToLoad(Images.profile_supprt);
-                break; 
+                break;
             default:
                 setImageToLoad(null);
         }
@@ -59,53 +37,75 @@ function UserDashboard() {
 
     const navigate = useNavigate();
 
+    //Renders the content re-written
+    //Much simpler and better logic 
     const renderContent = () => {
-        // Check if the selected sport is not 'main', implying it's either a sport or 'profile'
+
+        //The "main" is simply the 3 "Featured Sports" that are rendered when you first log in! 
         const isSportOrProfile = selectedSport !== "main";
-    
-        // Handle rendering the MainPageComponent separately
+
+        //Since this is not a sport, the BetterItemView component should not be run
+        //That is why we do a seperate if/else for this part
         if (selectedSport === "main") {
-          return <MainPageComponent />;
+            return <MainPageComponent />;
         }
-    
-        // For all other cases, return the appropriate content with the image included
+
+        //In all other cases, return the correct content witch also includes an image!
         return (
-          <div>
-            {isSportOrProfile && imageToLoad && (
-              <img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md" />
-            )}
-            {/* Render BettingItemView or ProfileComponent based on selectedSport */}
-            {selectedSport === "profile" ? <ProfileComponent /> : <BettingItemView sport={selectedSport} />}
-          </div>
-        );
-      };
-    
-      return (
-        <div>
-          {/* NavBar and other components remain unchanged */}
-          <DashboardNavbar></DashboardNavbar>
-          <div className="flex h-full">
-            <VerticalNavbar onSportButtonClick={(sport) => {
-              setSelectedSport(sport);
-              // Update imageToLoad based on the sport selected
-              switch(sport) {
-                case "hockey":
-                  setImageToLoad(Images.hockey_image);
-                  break;
-                case "basketball":
-                  setImageToLoad(Images.bball_image);
-                  break;
-                // Include other cases as necessary
-                default:
-                  setImageToLoad(null); // No image for 'main' or invalid sport
-              }
-            }}/>
-            <div className="bg-white flex-1 p-4">
-              {renderContent()}
+            <div>
+
+                {isSportOrProfile && imageToLoad && (
+                    <img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md" />
+                )}
+
+                {/* Render BettingItemView or ProfileComponent based on selectedSport.
+            Ternary operator is used instead of regular if/else so that it doesnt
+            have to be moved outside of the renderContent code block */}
+
+                {selectedSport === "profile" ? <ProfileComponent /> : <BettingItemView sport={selectedSport} />}
+
             </div>
-          </div>
+        );
+    };
+
+    return (
+        <div>
+
+            {/* Call the horizontal Dashboard component which shows at the top of the page ALL the time*/}
+            <DashboardNavbar></DashboardNavbar>
+
+            <div className="flex h-full">
+
+                {/* Vertical navbar is called here, always shows as well*/}
+
+                <VerticalNavbar onSportButtonClick={(sport) => {
+                    setSelectedSport(sport);
+
+                    // Update imageToLoad based on the sport selected
+                    switch (sport) {
+                        case "hockey":
+                            setImageToLoad(Images.hockey_image);
+                            break;
+                        case "basketball":
+                            setImageToLoad(Images.bball_image);
+                            break;
+
+                        default:
+
+                            //The 'main' doesnt have an image, so there shouldnt be an image set at all 
+                            setImageToLoad(null);
+                    }
+
+                }} />
+                <div className="bg-white flex-1 p-4">
+
+                    {/* Call the render content here! */}
+                    {renderContent()}
+
+                </div>
+            </div>
         </div>
-      );
+    );
 }
 
 export default UserDashboard;

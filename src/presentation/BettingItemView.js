@@ -174,7 +174,7 @@ const BettingItemView = ({ sport }) => {
         )
     }
 
-    let contentToDisplay;
+    let contentToDisplay; 
     if (sport === "hockey") {
 
         contentToDisplay = upcomingNHLGames.map((game) => generateContent(game));
