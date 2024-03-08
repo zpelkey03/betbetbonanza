@@ -8,6 +8,15 @@ const VerticalNavbar = ({ onSportButtonClick }) => {
                         <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                             <div className="flex items-center">
                                 <i className="fas fa-calendar-alt mr-2"></i>
+                                <button onClick={() => onSportButtonClick('main')}>Main Page</button>
+                            </div>
+                            <i className="fas fa-chevron-down text-xs"></i>
+                        </div>
+                    </li>
+                    <li className="opcion-con-desplegable">
+                        <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                            <div className="flex items-center">
+                                <i className="fas fa-calendar-alt mr-2"></i>
                                 <button onClick={() => onSportButtonClick('hockey')}>View NHL Bets</button>
                             </div>
                             <i className="fas fa-chevron-down text-xs"></i>

@@ -4,6 +4,7 @@ import { fetchedUser } from './LogInComponent';
 import ProfileComponent from './ProfileComponent';
 import { useEffect, useState } from 'react';
 import Images from './images/images';
+import MainPageComponent from './MainPageComponent';
 
 
 const BettingItemView = ({ sport }) => {
@@ -192,6 +193,12 @@ const BettingItemView = ({ sport }) => {
                  <ProfileComponent></ProfileComponent>
             </div>
            
+        )
+    } else {
+        contentToDisplay = (
+            <div>
+                <MainPageComponent></MainPageComponent>
+            </div>
         )
     }
 

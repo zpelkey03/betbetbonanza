@@ -8,6 +8,7 @@ import BettingItemView from './BettingItemView';
 import VerticalNavbar from './VerticalNavbar';
 import ProfileComponent from './ProfileComponent';
 import Images from './images/images';
+import MainPageComponent from './MainPageComponent';
 
 function UserDashboard() {
 
@@ -25,8 +26,10 @@ function UserDashboard() {
             setImageToLoad(Images.bball_image);
         } else if (sport === "soccer") {
             setImageToLoad(Images.soccer_image);
-        } else {
+        } else if (sport === "profile") {
             setImageToLoad(Images.profile_supprt);
+        } else {
+            setImageToLoad(null);
         }
     };
 
@@ -96,10 +99,22 @@ function UserDashboard() {
                     <div>
 
                     <img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md"/>
-
+                    
+                    
                     <BettingItemView sport={selectedSport} />
 
                     </div> 
+                    )}
+
+                    {/*Default component that shows when you login*/}
+                    {!selectedSport && (
+
+                        <div>
+                            <BettingItemView sport={selectedSport} />
+                        </div> 
+
+
+
                     )}
 
                 </div>
