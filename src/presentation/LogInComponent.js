@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addUserToDatabase } from '../business/Signup.js'; // Import the function to add user data to the database
-import { fetchUserByEmail} from '../business/Login.js'; // Import the function to fetch user by email
+import { fetchUserByEmail } from '../business/Login.js'; // Import the function to fetch user by email
 import BBBLoginPhoto from '../presentation/images/BBB_Login_Photo.png';
 
 
@@ -14,7 +14,7 @@ import BBBLoginPhoto from '../presentation/images/BBB_Login_Photo.png';
 
 
 //TODO: Use react-toast for error checking db elements 
- 
+
 let fetchedUser = null;
 function LogInComponent() {
 
@@ -23,7 +23,7 @@ function LogInComponent() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  
+
 
   //Used for Routing 
   const navigate = useNavigate();
@@ -31,13 +31,13 @@ function LogInComponent() {
 
   //Boiler plate code that tells Toast where and how long to show for 
   const toastSettings = () => ({
-      position: 'top-right',
-      autoClose: 4000, // this means 4 seconds
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+    position: 'top-right',
+    autoClose: 4000, // this means 4 seconds
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
 
   })
 
@@ -53,100 +53,100 @@ function LogInComponent() {
       toast.error("Email cannot be blank", toastSettings);
       return;
     } else if (!password) {
-      
+
       toast.error("Password cannot be blank", toastSettings);
       return;
     } else if (!firstName) {
-      
+
       toast.error("First name name cannot be blank", toastSettings);
       return;
     } else if (!lastName) {
-      
+
       toast.error("Last name cannot be blank", toastSettings);
       return;
     }
 
 
-  const auth = getAuth();
+    const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-    // Signed up
+      .then(async (userCredential) => {
+        // Signed up
 
-    //Pass the first name and last name to the user's display name
-    const user = userCredential.user;
+        //Pass the first name and last name to the user's display name
+        const user = userCredential.user;
 
-    //TODO: Strip whitespace and non alphabetical characters from the first and last name 
-    user.displayName = firstName + " " + lastName;
-    console.log(user.displayName);
-    console.log("account successfully created!");
+        //TODO: Strip whitespace and non alphabetical characters from the first and last name 
+        user.displayName = firstName + " " + lastName;
+        console.log(user.displayName);
+        console.log("account successfully created!");
 
 
-    // Add user data to the database
-    addUserToDatabase(email, firstName, lastName)
-    .then((userId) => {
-        console.log(`User data added to database with ID: ${userId}`);
-        navigate('/dashboard'); 
-    })
-    .catch((error) => {
-        console.error('Error adding user data to database:', error);
-        // Handle error accordingly
-    });
-    
-    fetchedUser = await fetchUserByEmail(user.email);
+        // Add user data to the database
+        addUserToDatabase(email, firstName, lastName)
+          .then((userId) => {
+            console.log(`User data added to database with ID: ${userId}`);
+            navigate('/dashboard');
+          })
+          .catch((error) => {
+            console.error('Error adding user data to database:', error);
+            // Handle error accordingly
+          });
 
-    navigate('/dashboard'); 
+        fetchedUser = await fetchUserByEmail(user.email);
 
-    })
+        navigate('/dashboard');
 
-    .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+      })
 
-    toast.error('Invalid email or password. Please try again.', toastSettings);
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-    // ..
-    });
+        toast.error('Invalid email or password. Please try again.', toastSettings);
+
+        // ..
+      });
   }
 
   const signInAccount = async (e) => {
-    
-    e.preventDefault(); 
+
+    e.preventDefault();
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
+      .then(async (userCredential) => {
 
 
 
-    // Signed in 
-    const user = userCredential.user;
-    toast.success('Succesfully signed in!', toastSettings);
-    
-    // Fetch user data based on the signed-in user's email
-    fetchedUser = await fetchUserByEmail(user.email);
-    if (fetchedUser) {
-      console.log('User data fetched:', fetchedUser);
-      // Continue with redirection or any other logic
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 2000);
-    } else {
-      console.log('No user data found for signed-in user:', user.email);
-      // Handle the case where no user data is found (optional)
-    }
+        // Signed in 
+        const user = userCredential.user;
+        toast.success('Succesfully signed in!', toastSettings);
 
-    
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+        // Fetch user data based on the signed-in user's email
+        fetchedUser = await fetchUserByEmail(user.email);
+        if (fetchedUser) {
+          console.log('User data fetched:', fetchedUser);
+          // Continue with redirection or any other logic
+          setTimeout(() => {
+            navigate('/dashboard');
+          }, 2000);
+        } else {
+          console.log('No user data found for signed-in user:', user.email);
+          // Handle the case where no user data is found (optional)
+        }
 
-    toast.error('Invalid email or password. Please try again.', toastSettings);
-  });
+
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        toast.error('Invalid email or password. Please try again.', toastSettings);
+      });
 
   }
 
 
-  const [selectedLogInComponet, setSelectedLogIncomponent] = useState(true); 
+  const [selectedLogInComponet, setSelectedLogIncomponent] = useState(true);
 
   let contentToDisplay;
 
@@ -154,14 +154,14 @@ function LogInComponent() {
   const signUpClicked = (event) => {
 
     event.preventDefault();
-    setSelectedLogIncomponent(false); 
+    setSelectedLogIncomponent(false);
 
-  } 
+  }
 
   const logInClicked = (event) => {
 
-    event.preventDefault(); 
-    setSelectedLogIncomponent(true); 
+    event.preventDefault();
+    setSelectedLogIncomponent(true);
 
   }
 
@@ -174,7 +174,7 @@ function LogInComponent() {
               <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
               <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
-    
+
             <div className="mt-6">
               <div className="flex justify-between mb-2">
                 <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200">Password</label>
@@ -182,77 +182,77 @@ function LogInComponent() {
               </div>
               <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
-    
+
             <div className="mt-6">
               <button onClick={signInAccount} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 Sign In
               </button>
-              <button onClick={signUpClicked}className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 my-4">
-                No account? Sign Up 
+              <button onClick={signUpClicked} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 my-4">
+                No account? Sign Up
               </button>
             </div>
           </form>
-          </div>
+        </div>
 
-          <ToastContainer />
-    
+        <ToastContainer />
+
       </div>
-    
-  
+
+
     )
 
 
   } else {
-    
+
     contentToDisplay = (
-      <div> 
+      <div>
 
         <form>
           <div>
 
             <div className="flex space-x-4 mt-6 my-3">
-            <div className="flex-1">
-            <label htmlFor="f_name" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">First Name</label>
-            <input onChange={(e) => setFirstName(e.target.value)} type="f_name" name="f_name" id="f_name" placeholder="First Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-            </div>
+              <div className="flex-1">
+                <label htmlFor="f_name" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">First Name</label>
+                <input onChange={(e) => setFirstName(e.target.value)} type="f_name" name="f_name" id="f_name" placeholder="First Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+              </div>
 
-            <div className="flex-1">
-            <label htmlFor="l_name" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Last Name</label>
-            <input onChange={(e) => setLastName(e.target.value)} type="l_name" name="l_name" id="l_name" placeholder="Last Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-            </div>
+              <div className="flex-1">
+                <label htmlFor="l_name" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Last Name</label>
+                <input onChange={(e) => setLastName(e.target.value)} type="l_name" name="l_name" id="l_name" placeholder="Last Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+              </div>
             </div>
 
             <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
             <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
-    
+
           <div className="mt-6">
             <div className="flex justify-between mb-2">
               <label htmlFor="password" className="text-sm text-gray-600 dark:text-gray-200">Password</label>
             </div>
             <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
-    
+
           <div className="mt-6">
             <button onClick={createAccount} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
               Create Account
             </button>
-  
-            <button onClick={logInClicked}className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 my-4">
-              Already have an account? 
+
+            <button onClick={logInClicked} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50 my-4">
+              Already have an account?
             </button>
           </div>
         </form>
 
         <ToastContainer />
       </div>
-      
-    ) 
-  
+
+    )
+
   }
-  
+
   return (
-    <div className="bg-white dark:bg-gray-900">
+    <div data-testid="LoginComponent" className="bg-white dark:bg-gray-900">
       <div className="flex justify-center h-screen">
         <div className="hidden bg-cover bg-center lg:block lg:w-2/3" style={{ backgroundImage: `url(${BBBLoginPhoto})` }}>
           <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
@@ -281,5 +281,5 @@ function LogInComponent() {
 
 export default LogInComponent;
 
-export {fetchedUser};
+export { fetchedUser };
 
