@@ -67,10 +67,12 @@ function UserDashboard() {
     };
 
     return (
-        <div>
+        <div data-testid="UserDashboard">
+
 
             {/* Call the horizontal Dashboard component which shows at the top of the page ALL the time*/}
             <DashboardNavbar></DashboardNavbar>
+
 
             <div className="flex h-full">
 

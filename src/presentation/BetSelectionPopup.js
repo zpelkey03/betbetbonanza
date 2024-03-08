@@ -65,28 +65,28 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
 
     const handleWagerChange = (event) => {
         const input = event.target.value;
-    
+
         // Allow only numeric values and up to two digits after the decimal point
         const sanitizedInput = input.replace(/[^0-9.]/g, ''); // Remove non-numeric characters except '.'
-    
+
         // Limit the total input length to 12 characters
         if (sanitizedInput.length > 12) {
             return; // Ignore input if more than 12 characters
         }
-    
+
         // Limit to one decimal point
         const decimalCheck = sanitizedInput.split('.');
         if (decimalCheck.length > 2) {
             return; // Ignore input if more than one decimal point
         }
-    
+
         // Limit to two digits after the decimal point
         if (decimalCheck[1] && decimalCheck[1].length > 2) {
             decimalCheck[1] = decimalCheck[1].substring(0, 2); // Trim digits after the second decimal place
         }
-    
+
         const finalInput = decimalCheck.join('.');
-    
+
         // Update the state with the sanitized input
         setWagerAmount(finalInput);
     };
@@ -172,14 +172,14 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
 
     return (
         <div className="fixed bottom-10 left-0 w-full flex justify-center z-50">
-            <div class="bg-white rounded-md shadow-xl overflow-hidden max-w-md w-full sm:w-96 md:w-1/2 lg:w-2/3 xl:w-1/3 z-50">
+            <div className="bg-white rounded-md shadow-xl overflow-hidden max-w-md w-full sm:w-96 md:w-1/2 lg:w-2/3 xl:w-1/3 z-50">
 
-                <div class="bg-indigo-500 text-white px-4 py-2 flex justify-between">
-                    <h2 class="text-lg font-bold">{selectedTeam + " " + odds}</h2>
+                <div className="bg-indigo-500 text-white px-4 py-2 flex justify-between">
+                    <h2 className="text-lg font-bold">{selectedTeam + " " + odds}</h2>
                     <button onClick={handleClose} className="text-white px-2 py-1">X</button>
                 </div>
 
-                <div class="p-4">
+                <div className="p-4">
                     <p className="text-small"> {selectedGame.home_team + " vs " + selectedGame.away_team} </p>
                     <p className="text-xs">Moneyline</p>
                 </div>

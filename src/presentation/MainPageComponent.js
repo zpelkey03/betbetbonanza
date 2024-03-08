@@ -48,6 +48,7 @@ const MainPageComponent = ( {onSportSelect}) => {
                         <div className="flex mt-4 gap-4 items-center"></div>
                     </div>
                 </button>
+
             </div>
         </div>
     );
