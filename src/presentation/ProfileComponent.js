@@ -22,7 +22,7 @@ function ProfileComponent() {
     };
 
     return (
-        <div className="flex flex-col sticky top-0 z-10 w-4/5 mx-auto mt-8">
+        <div className="flex flex-col sticky top-0 z-10  mx-auto mt-8">
 
 
             <div className="bg-gray-900 border border-gray-800 shadow-lg rounded-2xl p-4 relative mb-2">
@@ -52,9 +52,9 @@ function ProfileComponent() {
             </div>
 
             {/* Display user's bets */}
-            <div className="mt-4">
-                <h2 className="text-xl font-bold text-gray-200 mb-5 mt-5">Your Bets</h2>
-                <ul className="list-none ml-6">
+            <div className="mt-4 bg-gray-700 rounded-lg p-4">
+                <h2 className="text-xl font-bold text-black mb-5 mt-5 ">Your Bets</h2>
+                <ul className="list-none">
                     {
                         // Sort the userBets by the newest date first! 
                         userBets.sort((a, b) => new Date(b.game.commence_time) - new Date(a.game.commence_time))
