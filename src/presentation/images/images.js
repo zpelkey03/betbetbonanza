@@ -7,6 +7,8 @@ import {default as profile_support} from './profileSupport.png'
 import {default as ultra_hockey} from './ultraHockeyImage.png'
 import {default as ultra_basketball} from './ultraBasketballImage.png'
 import {default as ultra_soccer} from './ultraSoccerImage.png'
+import {default as nhl_logo} from './nhlLogo.png'
+import {default as nba_logo} from './nbaLogo.png'
 
 const Images={
 
@@ -17,6 +19,10 @@ const Images={
     "ultra_basketball": ultra_basketball,
     "soccer_image": soccer_image,
     "ultra_soccer": ultra_soccer,
+
+    // These logos from png mart.. keep this in mind when looking for the soccer logo
+    "nhl_logo": nhl_logo,
+    "nba_logo": nba_logo, 
 
 }
 
