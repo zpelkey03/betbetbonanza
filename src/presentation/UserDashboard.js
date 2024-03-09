@@ -56,7 +56,7 @@ function UserDashboard() {
             <div>
 
                 {isSportOrProfile && imageToLoad && (
-                    <img src={imageToLoad} style={{ maxHeight: '400px', width: '95%' }} className="mb-4 ml-5 rounded-md shadow-md" />
+                    <img src={imageToLoad} style={{ maxHeight: '400px', width: '98%' }} className="m-4 rounded-md shadow-md" />
                 )}
 
                 {/* Render BettingItemView or ProfileComponent based on selectedSport.
