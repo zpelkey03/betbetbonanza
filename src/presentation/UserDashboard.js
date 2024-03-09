@@ -48,8 +48,7 @@ function UserDashboard() {
             return (
                 <div>
                     <MainPageComponent onSportSelect={handleSportSelect}> </MainPageComponent>
-                    <p> Testing out some components in this empty space: </p>
-                    <ProfileComponent> </ProfileComponent></div>);
+                </div>);
         }
 
         //In all other cases, return the correct content witch also includes an image!

@@ -187,7 +187,7 @@ const BettingItemView = ({ sport }) => {
     }
 
     return (
-        <div style={{ maxHeight: "95%" }} className="h-screen overflow-y-auto bg-gray-700 rounded-lg p-4 m-4">
+        <div style={{ maxHeight: "95%" }} className="overflow-y-auto bg-gray-700 rounded-lg p-4 m-4">
             {contentToDisplay}
 
 
