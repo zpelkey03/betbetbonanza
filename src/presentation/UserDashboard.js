@@ -20,13 +20,13 @@ function UserDashboard() {
         setSelectedSport(sport);
         switch (sport) {
             case "hockey":
-                setImageToLoad(Images.hockey_image);
+                setImageToLoad(Images.ultra_hockey);
                 break;
             case "basketball":
-                setImageToLoad(Images.bball_image);
+                setImageToLoad(Images.ultra_basketball);
                 break;
             case "soccer":
-                setImageToLoad(Images.soccer_image);
+                setImageToLoad(Images.ultra_soccer);
                 break;
             default:
                 setImageToLoad(null);
@@ -45,7 +45,11 @@ function UserDashboard() {
         //Since this is not a sport, the BetterItemView component should not be run
         //That is why we do a seperate if/else for this part
         if (selectedSport === "main") {
-            return <MainPageComponent onSportSelect={handleSportSelect} />;
+            return (
+                <div>
+                    <MainPageComponent onSportSelect={handleSportSelect}> </MainPageComponent>
+                    <p> Testing out some components in this empty space: </p>
+                    <ProfileComponent> </ProfileComponent></div>);
         }
 
         //In all other cases, return the correct content witch also includes an image!
@@ -84,17 +88,17 @@ function UserDashboard() {
                     // Update imageToLoad based on the sport selected
                     switch (sport) {
                         case "hockey":
-                            setImageToLoad(Images.hockey_image);
+                            setImageToLoad(Images.ultra_hockey);
                             break;
                         case "basketball":
-                            setImageToLoad(Images.bball_image);
+                            setImageToLoad(Images.ultra_basketball);
                             break;
                         case "soccer":
-                            setImageToLoad(Images.soccer_image);
+                            setImageToLoad(Images.ultra_soccer);
                             break;
                         case "profile":
                             setImageToLoad(Images.profile_supprt);
-                            break; 
+                            break;
                         default:
 
                             //The 'main' doesnt have an image, so there shouldnt be an image set at all 
