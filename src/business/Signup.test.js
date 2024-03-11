@@ -1,4 +1,4 @@
-import { addUserToDatabase } from '../../src/business/Signup';
+import { addUserToDatabase } from './Signup';
 import { addDoc, getDocs } from 'firebase/firestore';
 
 /*
@@ -41,6 +41,6 @@ describe('Signup business logic', () => {
         expect(user).toEqual(newUserID.id);
     });
 
-    
+
 });
 

@@ -1,4 +1,4 @@
-import { fetchUserByEmail } from '../../src/business/Login';
+import { fetchUserByEmail } from './Login';
 import { getDocs } from 'firebase/firestore';
 
 /*

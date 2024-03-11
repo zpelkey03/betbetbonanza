@@ -1,4 +1,4 @@
-import { addBetToDatabase, updateUserCredits, getAllBetsByUserEmail } from '../../src/business/Bets';
+import { addBetToDatabase, updateUserCredits, getAllBetsByUserEmail } from './Bets';
 import { addDoc, getDocs, updateDoc } from 'firebase/firestore';
 
 /*
