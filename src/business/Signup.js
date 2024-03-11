@@ -7,7 +7,7 @@ import firebaseApp from '../config/database/firebaseConfig';
 const db = getFirestore(firebaseApp);
 
 // Function to add user data to the database
-export const addUserToDatabase = async (email, firstName, lastName) => {
+export const addUserToDatabase = async ({email, firstName, lastName}) => {
     try {
       // Replace 'users' with the name of your collection
       const usersCollection = collection(db, 'users');
