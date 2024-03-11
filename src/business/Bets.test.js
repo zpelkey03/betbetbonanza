@@ -3,11 +3,10 @@ import { getFirestore, collection, addDoc, query, where, getDocs, doc, updateDoc
 
 /*
  * Test suite for Bets.js
- * 1. updateUserCredits - validates the update of user credits based on their email
- * 2. getAllBetsByUserEmail - validates if all bets related to a user's email are fetched accurately
+ * 1. updateUserCredits - verifies the update of user credits based on their email
+ * 2. getAllBetsByUserEmail - verifies if all bets related to a user's email are fetched accurately
+ * 3. addBetToDatabase - verifies that a bet is added to database correctly.
 */
-
-// POSSIBLE TODO: ADD TEST FOR 'addBetToDatabase' FUNCTION ****
 
 // mock the Firestore to prevent actual database operations during testing methods in Bets.js
 jest.mock('firebase/firestore');
@@ -25,7 +24,7 @@ describe('Bets business logic', () => {
     // mock getDocs function to simulate fetching user documents - represents a non-empty query snapshot
     getDocs.mockResolvedValue({
       empty: false,
-      docs: [{ id: 'userDocId', data: () => ({}) }]        
+      docs: [{ id: 'userDocId', data: () => ({}) }]
     });
 
     // mock updateDoc function to simulate successful update operation
@@ -42,10 +41,10 @@ describe('Bets business logic', () => {
     expect(updateDoc).toHaveBeenCalled();
   });
 
-  
+
   // test case: Successfully fetching all bets associated with a user's email
   it('fetches all bets by user email successfully', async () => {
-    
+
     // `getDocs` function is mocked to simulate the retrieval process - avoids actual db calls for testing
     getDocs.mockResolvedValue({
       // custom implementation of the `forEach` method - which firestor uses to iterate over documents
@@ -65,5 +64,38 @@ describe('Bets business logic', () => {
     // check `getDocs` called during the execution of `getAllBetsByUserEmail`
     expect(getDocs).toHaveBeenCalled();
   });
+
+  //test case for placing a bet into the database.
+  it('Adds the specified bet to the database', async () => {
+
+    //Setting the input bet data for the test.
+    const gameData = {
+      away_team: "Charlotte Hornets",
+      commence_time: "2024-03-11T23:10:00Z",
+      draftkings_odds: { home_team_odds: 150, away_team_odds: -180 },
+      home_team: "Detroit Pistons",
+    }
+
+    const betData = {
+      sport: "basketball",
+      game: gameData,
+      team: "Detroit Pistons",
+      wagerAmount: "5",
+      returnAmount: "12.50",
+      userEmail: "testing@gmail.com",
+      isCompleted: false,
+    };
+
+    //calling the addBetToDatabase method to test it.
+    await addBetToDatabase(betData);
+
+    //Expect that a addDoc call was made with the correct data to add the bet to the database.
+    //collection is expected to be undefined since we mocked the DB.
+    expect(addDoc).toHaveBeenCalledWith(expect.toBeUndefined, betData);
+
+    //Expect that addDoc was only called 1 time.
+    expect(addDoc).toHaveBeenCalledTimes(1);
+
+  })
 });
 
