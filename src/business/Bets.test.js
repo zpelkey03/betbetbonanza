@@ -1,5 +1,5 @@
 import { addBetToDatabase, updateUserCredits, getAllBetsByUserEmail } from '../../src/business/Bets';
-import { getFirestore, collection, addDoc, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, getDocs, updateDoc } from 'firebase/firestore';
 
 /*
  * Test suite for Bets.js
