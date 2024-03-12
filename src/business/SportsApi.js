@@ -18,7 +18,6 @@ export const fetchUpcomingNHLGames = async () => {
 
     try {
         // Fetch odds for upcoming NHL games
-        debugger;
         const response = await axios.get(`https://api.the-odds-api.com/v4/sports/${sportKey}/odds`, {
             params: {
                 apiKey,
