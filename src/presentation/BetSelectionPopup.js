@@ -135,7 +135,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
                 toast.success("Bet successfully placed!", toastSettings);
                 console.log(sport, selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email, false);
                 await addBetToDatabase(sport, selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email, false);
-
+                
                 // Call the updateUser function to update the fetched user
                 await updateUserCredits(fetchedUser.email, fetchedUser.credits - wagerAmount);
 

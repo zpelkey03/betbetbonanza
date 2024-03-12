@@ -18,7 +18,8 @@ function ProfileComponent() {
             const bets = await getAllBetsByUserEmail(fetchedUser.email);
             setUserBets(bets);
             const gameIds = bets.map(bet => bet.game.id); // Assuming game id is nested within a "game" property
-            getGamesByIds(gameIds);
+            const games = await getGamesByIds(gameIds);
+            console.log('These are the games:', games);
         } catch (error) {
             console.error('Error fetching user bets:', error);
         }

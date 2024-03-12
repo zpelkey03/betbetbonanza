@@ -1,10 +1,11 @@
 import { getFirestore, collection, addDoc, getDoc, query, where, getDocs, doc, updateDoc} from 'firebase/firestore';
+import { getDatabase, ref, get, child } from 'firebase/database';
 import firebaseApp from '../config/database/firebaseConfig';
 
 // Use the initialized Firebase app
 const db = getFirestore(firebaseApp);
-
-
+const database = getDatabase();
+const dbRef = ref(database);
 // Function to add a bet to the database
 export const addBetToDatabase = async (sport, game, team, wagerAmount, returnAmount, userEmail, isCompleted) => {
     try {
@@ -19,7 +20,10 @@ export const addBetToDatabase = async (sport, game, team, wagerAmount, returnAmo
             wagerAmount: wagerAmount,
             returnAmount: returnAmount,
             userEmail: userEmail,
-            isCompleted: isCompleted
+            isCompleted: isCompleted,
+            homescore: null,
+            awayscore: null,
+            winner:null
         });
 
         console.log('Bet added successfully');
@@ -77,20 +81,32 @@ export const getAllBetsByUserEmail = async (email) => {
 
 export const getGamesByIds = async (gameIds) => {
     try {
-        const gamesCollection = collection(db, 'games'); // Reference to the 'games' collection
+        // Initialize the Realtime Database service
+        const database = getDatabase();
 
-        gameIds.forEach(async (gameId) => {
-            const gameDocRef = doc(gamesCollection, gameId); // Reference to the specific game document based on its ID
+        // Reference to the root of the database
+        const dbRef = ref(database);
 
-            const gameDoc = await getDoc(gameDocRef); // Get the specific game document
-            if (gameDoc.exists()) {
-                console.log('Game data:', gameDoc.data());
-                // You can then use the game data as needed
-            } else {
-                console.log(`Game with ID ${gameId} does not exist.`);
-            }
-        });
+        // Fetch all games once
+        const snapshot = await get(child(dbRef, 'games'));
+
+        // Check if any games exist
+        if (snapshot.exists()) {
+            const gamesData = snapshot.val();
+
+            // Filter games based on gameIds
+            const filteredGames = Object.keys(gamesData)
+                .filter(gameId => gameIds.includes(gameId))
+                .map(gameId => gamesData[gameId]);
+
+            // Return filtered games
+            return filteredGames;
+        } else {
+            console.log("No games available");
+            return [];
+        }
     } catch (error) {
         console.error('Error fetching games:', error);
+        return [];
     }
 };
