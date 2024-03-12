@@ -23,8 +23,8 @@ describe('Signup business logic', () => {
         //input data for test.
         const userData = {
             email: "newUser@gmail.com",
-            firstName: "new",
-            lastName: "User",
+            firstName: "firstName",
+            lastName: "lastName",
             credits: 100
         };
 
@@ -33,7 +33,7 @@ describe('Signup business logic', () => {
         addDoc.mockResolvedValueOnce(newUserID)
 
         //Calling the method under test
-        const user = await addUserToDatabase(userData);
+        const user = await addUserToDatabase("newUser@gmail.com", "firstName", "lastName",);
 
         expect(addDoc).toHaveBeenCalledWith(expect.toBeUndefined, userData);
 

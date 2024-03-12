@@ -87,7 +87,7 @@ describe('Bets business logic', () => {
     };
 
     //calling the addBetToDatabase method to test it.
-    await addBetToDatabase(betData);
+    await addBetToDatabase("basketball", gameData, "Detroit Pistons", "5", "12.50", "testing@gmail.com", false,);
 
     //Expect that a addDoc call was made with the correct data to add the bet to the database.
     //collection is expected to be undefined since we mocked the DB.
