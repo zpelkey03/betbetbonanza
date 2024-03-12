@@ -43,7 +43,7 @@ const MainPageComponent = ( {onSportSelect}) => {
                     <div className="bg-gray-800 p-6 text-white">
                         <span className="block text-slate-400 font-semibold text-sm">Soccer Betting</span>
                         <h3 className="mt-3 font-bold text-lg pb-4 border-b border-slate-300">
-                            <p> MLS? </p>
+                            <p> MLS </p>
                         </h3>
                         <div className="flex mt-4 gap-4 items-center"></div>
                     </div>

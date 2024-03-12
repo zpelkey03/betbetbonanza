@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 
-const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, homeOrAway, closePopup }) => {
+const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, upcomingSoccerGames, homeOrAway, closePopup }) => {
 
     const [selectedGame, setSelectedGame] = useState(null);
     const navigate = useNavigate();
@@ -32,10 +32,12 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
             game = upcomingNHLGames.find((game) => game.id === gameId);
         } else if (sport === "basketball") {
             game = upcomingNBAGames.find((game) => game.id === gameId);
+        } else if (sport === "soccer") {
+            game = upcomingSoccerGames.find((game) => game.id === gameId); 
         }
 
         setSelectedGame(game);
-    }, [gameId, sport, upcomingNHLGames, upcomingNBAGames]);
+    }, [gameId, sport, upcomingNHLGames, upcomingNBAGames, upcomingSoccerGames]);
 
     let selectedTeam = "";
     let odds = "";

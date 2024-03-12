@@ -1,4 +1,4 @@
-import { fetchUpcomingNBAGames, fetchUpcomingNHLGames } from '../business/SportsApi';
+import { fetchUpcomingNBAGames, fetchUpcomingNHLGames, fetchUpcomingSoccerGames } from '../business/SportsApi';
 import BetSelectionPopup from './BetSelectionPopup';
 import { fetchedUser } from './LogInComponent';
 import ProfileComponent from './ProfileComponent';
@@ -11,6 +11,8 @@ const BettingItemView = ({ sport }) => {
 
     const [upcomingNHLGames, setUpcomingNHLGames] = useState([]);
     const [upcomingNBAGames, setUpcomingNBAGames] = useState([]);
+    const [upcomingSoccerGames, setUpcomingSoccerGames] = useState([]);
+
 
     //This code will handle which bet was selected
     const [selectedGame, setSelectedGame] = useState(null);
@@ -38,6 +40,8 @@ const BettingItemView = ({ sport }) => {
             handleFetchUpcomingNHLGames();
         } else if (sport === "basketball") {
             handleFetchUpcomingNBAGames();
+        } else if (sport === "soccer") {
+            handleFetchUpcomingSoccerGames();
         }
         // Add else-if blocks for other sports as needed
     }, [sport]);
@@ -59,6 +63,15 @@ const BettingItemView = ({ sport }) => {
             setUpcomingNBAGames(games); // Update the state with the fetched games
         } catch (error) {
             console.error('Error fetching upcoming NBA games:', error);
+        }
+    };
+
+    const handleFetchUpcomingSoccerGames = async () => {
+        try {
+            const games = await fetchUpcomingSoccerGames(); // Call the function to fetch upcoming soccer games
+            setUpcomingSoccerGames(games);                  // Update the state with the fetched games
+        } catch (error) {
+            console.error('Error fetching upcoming soccer games:', error);
         }
     };
 
@@ -183,7 +196,7 @@ const BettingItemView = ({ sport }) => {
         contentToDisplay = upcomingNBAGames.map((game) => generateContent(game));
 
     } else if (sport === "soccer") {
-        
+        contentToDisplay = upcomingSoccerGames.map((game) => generateContent(game));
     }
 
     return (
@@ -192,7 +205,7 @@ const BettingItemView = ({ sport }) => {
 
 
             {selectedGame && homeOrAway && isPopupOpen && (
-                <BetSelectionPopup gameId={selectedGame} sport={sport} upcomingNHLGames={upcomingNHLGames} upcomingNBAGames={upcomingNBAGames} homeOrAway={homeOrAway} closePopup={closePopup} />
+                <BetSelectionPopup gameId={selectedGame} sport={sport} upcomingNHLGames={upcomingNHLGames} upcomingNBAGames={upcomingNBAGames} upcomingSoccerGames={upcomingSoccerGames} homeOrAway={homeOrAway} closePopup={closePopup} />
             )}
 
 

@@ -121,12 +121,64 @@ export const fetchUpcomingNBAGames = async () => {
     }
 };
 
+export const fetchUpcomingSoccerGames = async () => {
+    const sportKey = 'soccer_usa_mls'; // Set the sport key for MLS
+
+    const regions = 'us'; // Targeting the US region
+
+    const markets = 'h2h'; // Betting markets: head-to-head
+
+    const oddsFormat = 'american'; // Odds format: American
+
+    const dateFormat = 'iso';
+
+    try {
+        const response = await axios.get(`https://api.the-odds-api.com/v4/sports/${sportKey}/odds`, {
+            params: {
+                apiKey,
+                regions,
+                markets,
+                oddsFormat,
+                dateFormat
+            }
+        });
+        console.log("RESPONSE:", response);
+
+        if (response.data && typeof response.data === 'object') {
+            const today = new Date(); // Current date
+            const upcomingGames = [];
+
+            Object.keys(response.data).forEach(gameKey => {
+                const game = response.data[gameKey];
+                if (game.commence_time && new Date(game.commence_time) >= today) {
+                    const formattedGame = {
+                        id: game.id,
+                        commence_time: game.commence_time,
+                        home_team: game.home_team,
+                        away_team: game.away_team,
+                        draftkings_odds: getDraftKingsOdds(game.bookmakers),
+                    };
+                    upcomingGames.push(formattedGame);
+                }
+            });
+
+            console.log("UPCOMING GAMES:", upcomingGames);
+            return upcomingGames;
+        } else {
+            console.error('Error fetching upcoming MLS games: Response data is not in the expected format');
+            return [];
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Function to extract DraftKings odds from the bookmakers array
 const getDraftKingsOdds = (bookmakers) => {
     const draftKingsBookmaker = bookmakers.find(bookmaker => bookmaker.key === 'draftkings');
     if (draftKingsBookmaker) {
         const draftKingsOdds = draftKingsBookmaker.markets.find(market => market.key === 'h2h');
-        if (draftKingsOdds && draftKingsOdds.outcomes.length === 2) {
+        if (draftKingsOdds && (draftKingsOdds.outcomes.length === 2 || draftKingsOdds.outcomes.length === 3)) {         // 3 length needed for soccer
             return {
                 home_team_odds: draftKingsOdds.outcomes[0].price,
                 away_team_odds: draftKingsOdds.outcomes[1].price
