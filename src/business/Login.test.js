@@ -45,7 +45,13 @@ describe('Login business logic', () => {
         expect(user).toBeNull();
     });
 
-
-
+    it('handles errors when fetching user by email', async () => {
+        //  simulates firestore encountering an error (like a network/permission issue)
+        const error = new Error('Failed to fetch from Firestore');
+        getDocs.mockRejectedValueOnce(error);                   // explcitly instruct mocked getDocs to fail
+        
+        // Login.js should catch and rethrow initial error (expect error to be thrown in this test) 
+        await expect(fetchUserByEmail('error@example.com')).rejects.toThrow(error);          
+    });
 });
 
