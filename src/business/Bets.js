@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, query, where, getDocs, doc, updateDoc} from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDoc, query, where, getDocs, doc, updateDoc} from 'firebase/firestore';
 import firebaseApp from '../config/database/firebaseConfig';
 
 // Use the initialized Firebase app
@@ -10,7 +10,7 @@ export const addBetToDatabase = async ({sport, game, team, wagerAmount, returnAm
     try {
         // Replace 'bets' with the name of your collection
         const betsCollection = collection(db, 'bets');
-
+        console.log(sport, game, team, wagerAmount, returnAmount, userEmail, isCompleted);
         // Add a new document with the provided data
         await addDoc(betsCollection, {
             sport: sport, 
@@ -75,3 +75,22 @@ export const getAllBetsByUserEmail = async (email) => {
     }
 };
 
+export const getGamesByIds = async (gameIds) => {
+    try {
+        const gamesCollection = collection(db, 'games'); // Reference to the 'games' collection
+
+        gameIds.forEach(async (gameId) => {
+            const gameDocRef = doc(gamesCollection, gameId); // Reference to the specific game document based on its ID
+
+            const gameDoc = await getDoc(gameDocRef); // Get the specific game document
+            if (gameDoc.exists()) {
+                console.log('Game data:', gameDoc.data());
+                // You can then use the game data as needed
+            } else {
+                console.log(`Game with ID ${gameId} does not exist.`);
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching games:', error);
+    }
+};

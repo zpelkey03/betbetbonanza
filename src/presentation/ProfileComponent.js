@@ -1,6 +1,7 @@
 import { fetchedUser } from './LogInComponent';
 import { useEffect, useState } from 'react';
 import { getAllBetsByUserEmail } from '../business/Bets'; // Assuming you've named the file containing the function getAllBetsByUserEmail as BetsUtils.js
+import { getGamesByIds } from '../business/Bets'
 import UserBetsView from './UserBetsView';
 
 function ProfileComponent() {
@@ -16,6 +17,8 @@ function ProfileComponent() {
             // Assuming fetchedUser contains the current user's email
             const bets = await getAllBetsByUserEmail(fetchedUser.email);
             setUserBets(bets);
+            const gameIds = bets.map(bet => bet.game.id); // Assuming game id is nested within a "game" property
+            getGamesByIds(gameIds);
         } catch (error) {
             console.error('Error fetching user bets:', error);
         }
