@@ -16,6 +16,12 @@ import BBBLoginPhoto from '../presentation/images/BBB_Login_Photo.png';
 //TODO: Use react-toast for error checking db elements 
 
 let fetchedUser = null;
+
+// Function to update fetchedUser
+export const setFetchedUser = (user) => {
+  fetchedUser = user;
+};
+
 function LogInComponent() {
 
 
@@ -23,6 +29,8 @@ function LogInComponent() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+
+  
 
 
   //Used for Routing 

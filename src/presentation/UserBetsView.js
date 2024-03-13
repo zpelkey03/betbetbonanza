@@ -1,6 +1,6 @@
 
 const UserBetsView = ({ gameInformation }) => {
-    console.log(gameInformation.game);
+
     const { away_team, home_team, id, commence_time, isCompleted } = gameInformation.game;
 
     //Fix the date formatting 

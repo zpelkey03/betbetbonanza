@@ -2,6 +2,7 @@ import { getFirestore, collection, addDoc, getDoc, query, where, getDocs, doc, u
 import { getDatabase, ref, get, child } from 'firebase/database';
 import firebaseApp from '../config/database/firebaseConfig';
 import { writeBatch } from "firebase/firestore";
+import { fetchedUser, setFetchedUser } from '../presentation/LogInComponent';
 
 // Use the initialized Firebase app
 const db = getFirestore(firebaseApp);
@@ -72,7 +73,6 @@ export const getAllBetsByUserEmail = async (email) => {
             bets.push({ id: doc.id, ...doc.data() });
         });
         console.log('Bets fetched successfully');
-        console.log(bets);
         return bets;
     } catch (error) {
         console.error('Error fetching bets from database:', error);
@@ -101,7 +101,7 @@ export const getGamesByIds = async (gameIds) => {
                 .map(gameId => ({ id: gameId, ...gamesData[gameId] }));
 
             // Return filtered games
-            console.log('Filtered Games fetched successfully:', filteredGames);
+            console.log('Filtered Games fetched successfully:');
             return filteredGames;
         } else {
             console.log("No games available");
@@ -119,7 +119,6 @@ export const updateBetsInDatabase = async (userBets) => {
 
         // Assuming 'bets' is the name of your collection
         const betsCollection = collection(db, 'bets');
-        console.log('User bets:', userBets);
         userBets.forEach(bet => {
             const betRef = doc(betsCollection, bet.id);
             batch.update(betRef, {
@@ -136,6 +135,40 @@ export const updateBetsInDatabase = async (userBets) => {
         console.log('User bets updated in the database successfully');
     } catch (error) {
         console.error('Error updating user bets in the database:', error);
+        throw error;
+    }
+};
+
+
+export const updateWinCredits = async (bet) => {
+    try {
+        // Assuming 'users' is the name of your collection containing user data
+        const usersCollection = collection(db, 'users');
+
+        // Query the users collection to find the user with the matching email
+        const querySnapshot = await getDocs(query(usersCollection, where('email', '==', bet.userEmail)));
+        
+        if (!querySnapshot.empty) {
+            querySnapshot.forEach(async (doc) => {
+                const user = doc.data();
+                // Check if the team field of the bet matches the winner field
+                if (bet.team === bet.winner) {
+                    // Update the user's credit by adding the return amount
+                    const updatedCredit = (user.credits + parseFloat(bet.returnAmount)).toFixed(2);
+                    const userRef = doc.ref;
+                    await updateDoc(userRef, { credits: updatedCredit });
+                    console.log('User credit updated successfully');
+
+                    // After updating the user's credits, update fetchedUser
+                    setFetchedUser({ ...fetchedUser, credits: updatedCredit });
+
+                }
+            });
+        } else {
+            console.error('User not found');
+        }
+    } catch (error) {
+        console.error('Error updating user credit:', error);
         throw error;
     }
 };

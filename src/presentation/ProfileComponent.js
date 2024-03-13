@@ -1,6 +1,6 @@
 import { fetchedUser } from './LogInComponent';
 import { useEffect, useState } from 'react';
-import { getAllBetsByUserEmail } from '../business/Bets'; // Assuming you've named the file containing the function getAllBetsByUserEmail as BetsUtils.js
+import { getAllBetsByUserEmail, updateUserCredits, updateWinCredits } from '../business/Bets'; // Assuming you've named the file containing the function getAllBetsByUserEmail as BetsUtils.js
 import { getGamesByIds, updateBetsInDatabase } from '../business/Bets'
 import UserBetsView from './UserBetsView';
 
@@ -24,7 +24,9 @@ function ProfileComponent() {
             });
             
             // Extract game IDs from all bets
-            const gameIds = bets.map(bet => bet.game.id);
+            const gameIds = bets
+            .filter(bet => !bet.isCompleted) // Filter out completed bets
+            .map(bet => bet.game.id);
             const games = await getGamesByIds(gameIds);
             
             // Update userBets with corresponding games
@@ -52,6 +54,7 @@ function ProfileComponent() {
                             updatedBet.winner = game.awayTeam;
                         }
                     }
+                    updateWinCredits(updatedBet); // Update the user's credits based on the bet (assuming you have a function to do so in Bets.js
                     return updatedBet;
                 } else {
                     return bet;
@@ -60,7 +63,6 @@ function ProfileComponent() {
 
             // Filter out completed games
             const completedUserBets = updatedUserBets.filter(bet => bet.isCompleted);
-            console.log('Completed user bets:', completedUserBets);
             setUserBets(updatedUserBets);
             console.log('Updated user bets:', updatedUserBets);
             updateBetsInDatabase(completedUserBets); // Update the user bets in the database (assuming you have a function to do so in Bets.js
