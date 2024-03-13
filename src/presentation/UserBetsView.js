@@ -1,6 +1,6 @@
 
 const UserBetsView = ({ gameInformation }) => {
-
+    console.log(gameInformation.game);
     const { away_team, home_team, id, commence_time, isCompleted } = gameInformation.game;
 
     //Fix the date formatting 
@@ -17,7 +17,7 @@ const UserBetsView = ({ gameInformation }) => {
     let gameStatus; 
     let actualReturn; 
     
-    if (!gameInformation.game.isCompleted) {
+    if (!gameInformation.isCompleted) {
         gameStatus = "Game is not finished"
         actualReturn = "0.00"; 
 

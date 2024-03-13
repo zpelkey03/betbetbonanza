@@ -1,7 +1,7 @@
 import { fetchedUser } from './LogInComponent';
 import { useEffect, useState } from 'react';
 import { getAllBetsByUserEmail } from '../business/Bets'; // Assuming you've named the file containing the function getAllBetsByUserEmail as BetsUtils.js
-import { getGamesByIds } from '../business/Bets'
+import { getGamesByIds, updateBetsInDatabase } from '../business/Bets'
 import UserBetsView from './UserBetsView';
 
 function ProfileComponent() {
@@ -16,10 +16,54 @@ function ProfileComponent() {
         try {
             // Assuming fetchedUser contains the current user's email
             const bets = await getAllBetsByUserEmail(fetchedUser.email);
-            setUserBets(bets);
-            const gameIds = bets.map(bet => bet.game.id); // Assuming game id is nested within a "game" property
+            
+            // Map bet IDs to objects for easy lookup
+            const betIdMap = {};
+            bets.forEach(bet => {
+                betIdMap[bet.id] = bet;
+            });
+            
+            // Extract game IDs from all bets
+            const gameIds = bets.map(bet => bet.game.id);
             const games = await getGamesByIds(gameIds);
-            console.log('These are the games:', games);
+            
+            // Update userBets with corresponding games
+            const updatedUserBets = bets.map(bet => {
+                const game = games.find(game => game.id === bet.game.id);
+                if (game) {
+                    // Update specific properties of the user bet
+                    const updatedBet = { ...bet };
+                    if (game.completed !== undefined) {
+                        updatedBet.isCompleted = game.completed;
+                    }
+                    if (game.homeScore !== null) {
+                        updatedBet.homeScore = game.homeScore;
+                    }
+                    if (game.awayScore !== null) {
+                        updatedBet.awayScore = game.awayScore;
+                    }
+                    // Calculate winner based on scores
+                    if (game.homeScore !== null && game.awayScore !== null) {;
+                        if (game.homeScore === game.awayScore) {
+                            updatedBet.winner = 'Tie';
+                        } else if (game.homeScore > game.awayScore) {
+                            updatedBet.winner = game.homeTeam;
+                        } else {
+                            updatedBet.winner = game.awayTeam;
+                        }
+                    }
+                    return updatedBet;
+                } else {
+                    return bet;
+                }
+            });
+
+            // Filter out completed games
+            const completedUserBets = updatedUserBets.filter(bet => bet.isCompleted);
+            console.log('Completed user bets:', completedUserBets);
+            setUserBets(updatedUserBets);
+            console.log('Updated user bets:', updatedUserBets);
+            updateBetsInDatabase(completedUserBets); // Update the user bets in the database (assuming you have a function to do so in Bets.js
         } catch (error) {
             console.error('Error fetching user bets:', error);
         }

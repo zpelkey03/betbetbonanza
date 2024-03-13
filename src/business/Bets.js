@@ -1,6 +1,7 @@
 import { getFirestore, collection, addDoc, getDoc, query, where, getDocs, doc, updateDoc} from 'firebase/firestore';
 import { getDatabase, ref, get, child } from 'firebase/database';
 import firebaseApp from '../config/database/firebaseConfig';
+import { writeBatch } from "firebase/firestore";
 
 // Use the initialized Firebase app
 const db = getFirestore(firebaseApp);
@@ -97,9 +98,10 @@ export const getGamesByIds = async (gameIds) => {
             // Filter games based on gameIds
             const filteredGames = Object.keys(gamesData)
                 .filter(gameId => gameIds.includes(gameId))
-                .map(gameId => gamesData[gameId]);
+                .map(gameId => ({ id: gameId, ...gamesData[gameId] }));
 
             // Return filtered games
+            console.log('Filtered Games fetched successfully:', filteredGames);
             return filteredGames;
         } else {
             console.log("No games available");
@@ -108,5 +110,32 @@ export const getGamesByIds = async (gameIds) => {
     } catch (error) {
         console.error('Error fetching games:', error);
         return [];
+    }
+};
+
+export const updateBetsInDatabase = async (userBets) => {
+    try {
+        const batch = writeBatch(db);
+
+        // Assuming 'bets' is the name of your collection
+        const betsCollection = collection(db, 'bets');
+        console.log('User bets:', userBets);
+        userBets.forEach(bet => {
+            const betRef = doc(betsCollection, bet.id);
+            batch.update(betRef, {
+                isCompleted: bet.isCompleted,
+                homeScore: bet.homeScore,
+                awayScore: bet.awayScore,
+                winner: bet.winner
+            });
+        });
+
+        // Commit the batch
+        await batch.commit();
+        
+        console.log('User bets updated in the database successfully');
+    } catch (error) {
+        console.error('Error updating user bets in the database:', error);
+        throw error;
     }
 };
