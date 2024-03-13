@@ -177,10 +177,19 @@ const getDraftKingsOdds = (bookmakers) => {
     const draftKingsBookmaker = bookmakers.find(bookmaker => bookmaker.key === 'draftkings');
     if (draftKingsBookmaker) {
         const draftKingsOdds = draftKingsBookmaker.markets.find(market => market.key === 'h2h');
-        if (draftKingsOdds && (draftKingsOdds.outcomes.length === 2 || draftKingsOdds.outcomes.length === 3)) {         // 3 length needed for soccer
+        if (draftKingsOdds && (draftKingsOdds.outcomes.length === 2)) {         // 3 length needed for soccer
+            console.log("2 Outcomes Found:", draftKingsOdds.outcomes);
             return {
                 home_team_odds: draftKingsOdds.outcomes[0].price,
                 away_team_odds: draftKingsOdds.outcomes[1].price
+            };
+        } else if (draftKingsOdds && draftKingsOdds.outcomes.length === 3) {
+            // When there are 3 outcomes, assuming the third is the tie
+            return {
+                
+                home_team_odds: draftKingsOdds.outcomes[0].price,
+                away_team_odds: draftKingsOdds.outcomes[1].price,
+                tie_odds: draftKingsOdds.outcomes[2].price // Adding tie odds here
             };
         }
     }

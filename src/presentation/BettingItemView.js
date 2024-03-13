@@ -1,10 +1,7 @@
 import { fetchUpcomingNBAGames, fetchUpcomingNHLGames, fetchUpcomingSoccerGames } from '../business/SportsApi';
 import BetSelectionPopup from './BetSelectionPopup';
-import { fetchedUser } from './LogInComponent';
-import ProfileComponent from './ProfileComponent';
 import { useEffect, useState } from 'react';
-import Images from './images/images';
-import MainPageComponent from './MainPageComponent';
+
 
 
 const BettingItemView = ({ sport }) => {
@@ -70,6 +67,7 @@ const BettingItemView = ({ sport }) => {
         try {
             const games = await fetchUpcomingSoccerGames(); // Call the function to fetch upcoming soccer games
             setUpcomingSoccerGames(games);                  // Update the state with the fetched games
+            console.log(games)
         } catch (error) {
             console.error('Error fetching upcoming soccer games:', error);
         }
@@ -77,12 +75,17 @@ const BettingItemView = ({ sport }) => {
 
 
 
-    
+    let columnAmount = "grid grid-cols-3 gap-0 sticky top-0 z-10 w-4/5 mx-auto mt-8"
 
+    if (sport === "soccer"){
+        columnAmount = "grid grid-cols-4 gap-0 sticky top-0 z-10 w-4/5 mx-auto mt-8"
+    }
+
+    
     const generateContent = (game) => {
         return (
             
-            <div key={game.id} className="grid grid-cols-3 gap-0 sticky top-0 z-10 w-4/5 mx-auto mt-8">
+            <div key={game.id} className={columnAmount}>
                 {/* First Column */}
 
                 <div className="col-span-1 bg-gray-900">
@@ -145,6 +148,53 @@ const BettingItemView = ({ sport }) => {
                         </div>
                     </div>
                 </div>
+                
+
+                {/* Add an extra 'tie' column for soccer */}
+             {console.log(game.draftkings_odds)}
+                {
+                    sport === "soccer" && (
+
+                        <div className="col-span-1 bg-gray-900">
+                        <div className="flex-none sm:flex justify-center items-center">
+                            <div className="flex-auto justify-evenly text-center">
+                                <div className="flex flex-col pt-3 pb-3">
+                                    <div className="w-full flex-none text-1x1 text-white font-bold leading-none mt-2"> &nbsp;  </div>
+    
+                                    <div className="bg-gray-800 flex-auto text-white font-bold my-1">
+                                        <span className="mr-3"></span>
+
+                    
+                                        <button onClick={() => handleBetSelection(game.id, "tie")} className="mr-3"> &nbsp; &nbsp; Tie </button>
+    
+                                    </div>
+    
+                                    <div className="bg-gray-900 flex-auto text-white my-1">
+                                        <span className="mr-3"></span>
+                                        <span className="mr-3"></span>
+                                        {
+                                            (() => {
+                                                // Same check for away_team_odds
+                                                if (game.draftkings_odds) {
+                                                    if (game.draftkings_odds.tie_odds > 0) {
+                                                        return <button onClick={() => handleBetSelection(game.id, "tie")} className="mr-3">{"+" + game.draftkings_odds.tie_odds}</button>;
+                                                    } else {
+                                                        return <button onClick={() => handleBetSelection(game.id, "tie")} className="mr-3"> {game.draftkings_odds.tie_odds} </button>;
+                                                    }
+                                                } else {
+                                                    // Return some default UI or handle the missing odds case here
+                                                    return <span>No odds available</span>;
+                                                }
+                                            })()
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    )
+                }
 
                 {/* Third Column */}
                 <div className="col-span-1 bg-gray-900">

@@ -58,6 +58,12 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
             if (odds > 0) {
                 odds = "+" + odds
             }
+        } else {
+            selectedTeam = "Tie"
+            odds = selectedGame.draftkings_odds.tie_odds;
+            if (odds > 0) {
+                odds = "+" + odds
+            }
         }
     }
 
