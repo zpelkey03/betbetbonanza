@@ -11,7 +11,7 @@ const dbRef = ref(database);
 // Function to add a bet to the database
 export const addBetToDatabase = async (sport, game, team, wagerAmount, returnAmount, userEmail, isCompleted) => {
     try {
-        // Replace 'bets' with the name of your collection
+        // Collection named bets
         const betsCollection = collection(db, 'bets');
         
         // Add a new document with the provided data
@@ -117,7 +117,7 @@ export const updateBetsInDatabase = async (userBets) => {
     try {
         const batch = writeBatch(db);
 
-        // Assuming 'bets' is the name of your collection
+        // Update bets collection
         const betsCollection = collection(db, 'bets');
         userBets.forEach(bet => {
             const betRef = doc(betsCollection, bet.id);
@@ -142,7 +142,7 @@ export const updateBetsInDatabase = async (userBets) => {
 
 export const updateWinCredits = async (bet) => {
     try {
-        // Assuming 'users' is the name of your collection containing user data
+        // Collection containing user data
         const usersCollection = collection(db, 'users');
 
         // Query the users collection to find the user with the matching email
