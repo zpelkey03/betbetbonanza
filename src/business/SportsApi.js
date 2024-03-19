@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // An api key is emailed to you when you sign up to a plan
 // Get a free API key at https://api.the-odds-api.com/
-const apiKey = '7253c557c11af52921edf5623038a50c'
+const apiKey = '9d0bd4a50c2dcbe41687efcac4ae9dea'
 
 
 export const fetchUpcomingNHLGames = async () => {
