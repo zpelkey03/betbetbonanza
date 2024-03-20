@@ -48,6 +48,7 @@ function UserDashboard() {
             return (
                 <div>
                     <MainPageComponent onSportSelect={handleSportSelect}> </MainPageComponent>
+                    
                 </div>);
         }
 

@@ -54,7 +54,7 @@ function ProfileComponent() {
                             updatedBet.winner = game.awayTeam;
                         }
                     }
-                    updateWinCredits(updatedBet); // Update the user's credits based on the bet (assuming you have a function to do so in Bets.js
+                    updateWinCredits(updatedBet); // Update the user's credits based on the bet 
                     return updatedBet;
                 } else {
                     return bet;
@@ -65,7 +65,7 @@ function ProfileComponent() {
             const completedUserBets = updatedUserBets.filter(bet => bet.isCompleted);
             setUserBets(updatedUserBets);
             console.log('Updated user bets:', updatedUserBets);
-            updateBetsInDatabase(completedUserBets); // Update the user bets in the database (assuming you have a function to do so in Bets.js
+            updateBetsInDatabase(completedUserBets); // Update the user bets in the database 
         } catch (error) {
             console.error('Error fetching user bets:', error);
         }
@@ -103,7 +103,7 @@ function ProfileComponent() {
 
             {/* Display user's bets */}
             <div className="mt-4 bg-gray-700 rounded-lg p-4">
-                <h2 className="text-xl font-bold text-black mb-5 mt-5 ">Your Bets</h2>
+                <h2 className="text-xl font-bold text-white mb-5 mt-5 ">Your Bets</h2>
                 <ul className="list-none">
                     {
                         // Sort the userBets by the newest date first! 
