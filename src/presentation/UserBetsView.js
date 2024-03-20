@@ -1,34 +1,46 @@
+import Images from './images/images';
+
 
 const UserBetsView = ({ gameInformation }) => {
 
     const { away_team, home_team, id, commence_time, isCompleted } = gameInformation.game;
 
+
+    console.log(gameInformation);
     //Fix the date formatting 
     const commenceTime = new Date(commence_time);
 
     // Use Intl.DateTimeFormat to format the date
-    const formattedDate = new Intl.DateTimeFormat('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: '2-digit' 
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit'
     }).format(commenceTime);
 
     //This will need to be re-written probably once we actually fetch completed games..
-    let gameStatus; 
-    let actualReturn; 
-    
+    let gameStatus;
+    let actualReturn;
+    let imageToReturn; 
+
     if (!gameInformation.isCompleted) {
         gameStatus = "Game is not finished"
-        actualReturn = "0.00"; 
+        actualReturn = "0.00";
+        imageToReturn = Images.xmark;
 
-    } else {
+    } else if (gameInformation.isCompleted && gameInformation.returnAmount > 0) {
         gameStatus = "Game is finished"
         actualReturn = gameInformation.returnAmount;
+        imageToReturn = Images.checkmark; 
+    } else {
+        imageToReturn = Images.xmark; 
     }
 
     return (
 
         <div className="bg-gray-900 border border-gray-800 shadow-lg rounded-2xl p-4 relative mb-2">
+
+            <img src={imageToReturn} alt="Description" className="absolute top-1 left-1 w-6 h-6" />
+
             {/* Main content */}
             <div className="flex-none sm:flex">
                 <div className="flex-auto sm:ml-5 justify-evenly flex w-95p">
@@ -46,7 +58,7 @@ const UserBetsView = ({ gameInformation }) => {
                             <br />
                             <span className="mr-3">{formattedDate}</span>
                             <br />
-                            <span className="mr-3">{gameStatus }</span>
+                            <span className="mr-3">{gameStatus}</span>
                         </div>
                     </div>
 

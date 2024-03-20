@@ -9,6 +9,8 @@ import {default as ultra_basketball} from './ultraBasketballImage.png'
 import {default as ultra_soccer} from './ultraSoccerImage.png'
 import {default as nhl_logo} from './nhlLogo.png'
 import {default as nba_logo} from './nbaLogo.png'
+import {default as checkmark} from './checkmark.png'
+import {default as xmark} from './xmark.png'
 
 const Images={
 
@@ -23,6 +25,9 @@ const Images={
     // These logos from png mart.. keep this in mind when looking for the soccer logo
     "nhl_logo": nhl_logo,
     "nba_logo": nba_logo, 
+
+    "checkmark": checkmark, 
+    "xmark": xmark, 
 
 }
 
