@@ -1,5 +1,7 @@
+import { TextDecoder as ImportedTextDecoder, TextEncoder as ImportedTextEncoder, } from "util"; Object.assign(global, { TextDecoder: ImportedTextDecoder, TextEncoder: ImportedTextEncoder, });
 import { addBetToDatabase, updateUserCredits, getAllBetsByUserEmail } from './Bets';
 import { addDoc, getDocs, updateDoc } from 'firebase/firestore';
+
 
 /*
  * Test suite for Bets.js
@@ -8,8 +10,16 @@ import { addDoc, getDocs, updateDoc } from 'firebase/firestore';
  * 3. addBetToDatabase - verifies that a bet is added to database correctly.
 */
 
+
+
 // mock the Firestore to prevent actual database operations during testing methods in Bets.js
 jest.mock('firebase/firestore');
+
+jest.mock("firebase/auth", () => ({
+  getAuth: jest.fn(),
+  createUserWithEmailAndPassword: jest.fn(),
+  signInWithEmailAndPassword: jest.fn()
+}));
 
 // test Suite for Bets.js
 describe('Bets business logic', () => {
@@ -84,6 +94,9 @@ describe('Bets business logic', () => {
       returnAmount: "12.50",
       userEmail: "testing@gmail.com",
       isCompleted: false,
+      homescore: null,
+      awayscore: null,
+      winner: null,
     };
 
     //calling the addBetToDatabase method to test it.
