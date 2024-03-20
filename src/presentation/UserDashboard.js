@@ -10,6 +10,7 @@ import ProfileComponent from './ProfileComponent';
 import Images from './images/images';
 import MainPageComponent from './MainPageComponent';
 import DashboardNavbar from './DashboardNavbar';
+import CreditsAndEmail from './CreditsAndEmail';
 
 function UserDashboard() {
 
@@ -48,7 +49,8 @@ function UserDashboard() {
             return (
                 <div>
                     <MainPageComponent onSportSelect={handleSportSelect}> </MainPageComponent>
-                    
+                    <div className="mt-8"></div>
+                    <CreditsAndEmail></CreditsAndEmail>
                 </div>);
         }
 

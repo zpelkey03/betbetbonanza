@@ -183,7 +183,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
         <div className="fixed bottom-10 left-0 w-full flex justify-center z-50">
             <div className="bg-white rounded-md shadow-xl overflow-hidden max-w-md w-full sm:w-96 md:w-1/2 lg:w-2/3 xl:w-1/3 z-50">
 
-                <div className="bg-indigo-500 text-white px-4 py-2 flex justify-between">
+                <div className="bg-gray-500 text-white px-4 py-2 flex justify-between">
                     <h2 className="text-lg font-bold">{selectedTeam + " " + odds}</h2>
                     <button onClick={handleClose} className="text-white px-2 py-1">X</button>
                 </div>
@@ -202,7 +202,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
                         className="flex-1 px-3 py-2 text-center text-small focus:outline-none pl-3"
                         placeholder="$0.00"
                     />
-                    <button onClick={placeBet} className="betButton px-3 py-4 border-l border-white border-opacity-25 bg-indigo-500 text-white w-1/2 relative font-bold">
+                    <button onClick={placeBet} className="betButton px-3 py-4 border-l border-white border-opacity-25 bg-gray-500 text-white w-1/2 relative font-bold">
                         Place Bet
                         <p className="absolute py-2 bottom-0 left-0 font-normal text-indigo-200 text-xs text-center w-full">To return: ${calculateReturn()} </p>
                     </button>

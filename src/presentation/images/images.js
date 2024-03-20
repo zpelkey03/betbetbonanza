@@ -9,12 +9,15 @@ import {default as ultra_basketball} from './ultraBasketballImage.png'
 import {default as ultra_soccer} from './ultraSoccerImage.png'
 import {default as nhl_logo} from './nhlLogo.png'
 import {default as nba_logo} from './nbaLogo.png'
+import {default as mls_logo} from './mlsLogo.png'
 import {default as checkmark} from './checkmark.png'
 import {default as xmark} from './xmark.png'
+import {default as profileLogo} from './viewProfile.png'
 
 const Images={
 
     "profile_supprt": profile_support, 
+    "profileLogo": profileLogo, 
     "hockey_image": hockey_image,
     "ultra_hockey": ultra_hockey, 
     "bball_image": bball_image,
@@ -25,6 +28,7 @@ const Images={
     // These logos from png mart.. keep this in mind when looking for the soccer logo
     "nhl_logo": nhl_logo,
     "nba_logo": nba_logo, 
+    "mls_logo": mls_logo, 
 
     "checkmark": checkmark, 
     "xmark": xmark, 
