@@ -136,7 +136,7 @@ const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, 
 
         try {
             // Call the updateDatabase function to update the database
-            if (fetchedUser.credits >= wagerAmount && wagerAmount > 0) {
+            if ((fetchedUser.credits >= wagerAmount) && wagerAmount > 0) {
                 button.classList.add("inactive");
                 toast.success("Bet successfully placed!", toastSettings);
                 console.log(sport, selectedGame, selectedTeam, wagerAmount, calculateReturn(), fetchedUser.email, false);
