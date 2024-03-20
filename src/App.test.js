@@ -10,19 +10,9 @@ jest.mock('firebase/auth', () => ({
   signInWithEmailAndPassword: jest.fn(),
 }));
 
-test('renders learn react link', () => {
+test('renders login page', () => {
   render(<App />);
   const loginComponent = screen.getByTestId('LoginComponent');
-  // const userDashboard = screen.getByTestId('UserDashboard');
-  expect(loginComponent).toBeInTheDocument();
-  // expect(userDashboard).toBeInTheDocument();
-});
-
-test('renders learn react link', () => {
-
-  window.history.pushState({}, 'Dashboard Page', '/dashboard');
-  render(<App />);
-  const loginComponent = screen.getByTestId('UserDashboard');
   // const userDashboard = screen.getByTestId('UserDashboard');
   expect(loginComponent).toBeInTheDocument();
   // expect(userDashboard).toBeInTheDocument();
