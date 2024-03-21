@@ -3,6 +3,7 @@ import "tailwindcss/tailwind.css";
 import LogInComponent from './presentation/LogInComponent';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import UserDashboard from './presentation/UserDashboard';
+import AdminDashboard from './presentation/adminComponents/AdminDashboard';
 
 const App = () => {
   // const [dataFromFirebase, setDataFromFirebase] = useState([]);
@@ -28,15 +29,13 @@ const App = () => {
 
   return (
     <div>
-    
-      
-      
       <Router>
 
         <Routes>
           <Route path="/" element={<LogInComponent />} />
           <Route path="/dashboard" element={<UserDashboard />} />
-          {/* Add other routes as needed */}
+          <Route path="/admin" element={<AdminDashboard />} />
+          
         </Routes>
 
       </Router>

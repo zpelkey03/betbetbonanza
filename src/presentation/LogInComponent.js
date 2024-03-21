@@ -131,7 +131,15 @@ function LogInComponent() {
 
         // Fetch user data based on the signed-in user's email
         fetchedUser = await fetchUserByEmail(user.email);
-        if (fetchedUser) {
+
+        if (fetchedUser && user.email === "admin@gmail.com") {
+          
+          console.log('Admin data fetched:', fetchedUser);
+          setTimeout(() => {
+            navigate('/admin');
+          }, 2000);
+
+        } else if (fetchedUser) {
           console.log('User data fetched:', fetchedUser);
           // Continue with redirection or any other logic
           setTimeout(() => {
