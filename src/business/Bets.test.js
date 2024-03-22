@@ -1,5 +1,5 @@
 import { TextDecoder as ImportedTextDecoder, TextEncoder as ImportedTextEncoder, } from "util"; Object.assign(global, { TextDecoder: ImportedTextDecoder, TextEncoder: ImportedTextEncoder, });
-import { addBetToDatabase, updateUserCredits, getAllBetsByUserEmail } from './Bets';
+import { addBetToDatabase, updateUserCredits, getAllBetsByUserEmail, updateWinCredits} from './Bets';
 import { addDoc, getDocs, updateDoc } from 'firebase/firestore';
 
 
@@ -110,5 +110,68 @@ describe('Bets business logic', () => {
     expect(addDoc).toHaveBeenCalledTimes(1);
 
   })
+
+  it('updates win credits for winning bet', async () => {
+    // mocked getDocs along w/ forEach (for querySnapshot, w/o foreach being mocked - will get many errors due to Bets.js dependancies)
+    getDocs.mockResolvedValue({
+      empty: false,
+      docs: [
+        {
+          id: 'Mock-id',
+          data: () => ({ email: 'tester@BetBetBonanza.com', credits: 100 }),
+          ref: { update: jest.fn() }    
+        }
+      ],
+      forEach: function(callback) {
+        // **MUST MOCK - needed to mock firestore
+        this.docs.forEach(doc => callback(doc));
+      }
+    });
+  
+    updateDoc.mockResolvedValue();
+  
+    // winning bet (reflects 2019 finals where Raptors defeated GSW)
+    const NBAFinals2019Bet = {
+      userEmail: 'tester@BetBetBonanza.com',
+      team: 'Toronto Raptors',
+      winner: 'Toronto Raptors',
+      returnAmount: 42
+    };
+  
+    await expect(updateWinCredits(NBAFinals2019Bet)).resolves.toBeUndefined();    // ensure no errors thrown
+  
+    expect(updateDoc).toHaveBeenCalledTimes(1);     // ensure only updated once
+  });
+  
+  it('does not update credits for losing bet', async () => {
+
+    jest.clearAllMocks();
+  
+    // mocked getDocs along w/ forEach (for querySnapshot, w/o foreach being mocked - will get many errors due to Bets.js dependancies)
+    getDocs.mockResolvedValue({
+      empty: false,
+      docs: [{
+        id: 'Mock-id',
+        data: () => ({ email: 'tester@BetBetBonanza.com', credits: 100 }),
+        ref: { id: 'Mock-id' } 
+      }],
+      forEach: function(callback) {
+        // **MUST MOCK - needed to mock firestore
+        this.docs.forEach(callback);
+      }
+    });
+  
+    // mock losing bet object (reflects 2016 finals where GSW lost to Cavs)
+    const NBAFinals2016Bet = {
+      userEmail: 'tester@BetBetBonanza.com',
+      team: 'Golden State Warriors',
+      winner: 'Cleveland Cavaliers',
+      returnAmount: 31
+    };
+  
+    await updateWinCredits(NBAFinals2016Bet);
+  
+    expect(updateDoc).not.toHaveBeenCalled();       // doc should not be called to update (since it is a losing bet)
+  });
 });
 
