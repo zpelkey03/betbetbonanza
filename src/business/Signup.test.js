@@ -18,7 +18,7 @@ describe('Signup business logic', () => {
     });
 
     // test case: fetch user by email
-    it('add user to the database', async () => {
+    it('TC4: add user to the database', async () => {
 
         //input data for test.
         const userData = {

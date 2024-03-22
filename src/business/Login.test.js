@@ -18,7 +18,7 @@ describe('Login business logic', () => {
     });
 
     // test case: fetch user by email
-    it('fetches user by their email', async () => {
+    it('TC1: fetches user by their email', async () => {
         //Mocking the database to return a specific user when getDocs is called.
         const userData = { id: 'dgIWMFQXtCGs0O64vWT6', firstName: 'Mahmood', lastName: "Alnasleh", email: 'testing@gmail.com' };
         const querySnapshot = { empty: false, docs: [{ data: () => userData }] };
@@ -32,7 +32,7 @@ describe('Login business logic', () => {
         expect(user).toEqual(userData);
     });
 
-    it('should return null if no user found with the provided email', async () => {
+    it('TC2: should return null if no user found with the provided email', async () => {
         // Mocking database response to query to be empty.
         const querySnapshot = { empty: true };
         getDocs.mockResolvedValueOnce(querySnapshot);
@@ -45,7 +45,7 @@ describe('Login business logic', () => {
         expect(user).toBeNull();
     });
 
-    it('handles errors when fetching user by email', async () => {
+    it('TC3: handles errors when fetching user by email', async () => {
         //  simulates firestore encountering an error (like a network/permission issue)
         const error = new Error('Failed to fetch from Firestore');
         getDocs.mockRejectedValueOnce(error);                   // explcitly instruct mocked getDocs to fail

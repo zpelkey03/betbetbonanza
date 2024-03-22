@@ -566,9 +566,9 @@
       "id": "85b07488-796e-4b0f-bcc4-f80ba01409d0",
       "comment": "",
       "command": "click",
-      "target": "css=.opcion-con-desplegable:nth-child(5) button",
+      "target": "css=.transition-transform:nth-child(5) button",
       "targets": [
-        ["css=.opcion-con-desplegable:nth-child(5) button", "css:finder"],
+        ["css=.transition-transform:nth-child(5) button", "css:finder"],
         ["xpath=//div[@id='root']/div/div/div/aside/nav/ul/li[5]/div/div/button", "xpath:idRelative"],
         ["xpath=//li[5]/div/div/button", "xpath:position"],
         ["xpath=//button[contains(.,'View Profile')]", "xpath:innerText"]
@@ -597,6 +597,30 @@
         ["xpath=//div[4]/div/div/div/div/div/div/div/div/div/div/div", "xpath:position"]
       ],
       "value": "Mahmood Alnasleh"
+    }, {
+      "id": "197ef57a-80f9-436f-8f67-31e2d91cd41c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.flex-none:nth-child(1) .flex-none > .font-bold:nth-child(1)",
+      "targets": [
+        ["css=.flex-none:nth-child(1) .flex-none > .font-bold:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/div/div/div/div/div[2]/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Total Credits:')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6b57e7f7-e190-4e53-93a6-14c92adbfc4b",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.text-2xl > .mr-3",
+      "targets": [
+        ["css=.text-2xl > .mr-3", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/div/div/div/div/div[2]/div/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'$500')]", "xpath:innerText"]
+      ],
+      "value": ""
     }]
   }, {
     "id": "ad815435-5264-4e0b-bb68-90baa23f6d1b",

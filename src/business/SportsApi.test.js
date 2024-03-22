@@ -4,7 +4,7 @@ import axios from 'axios'; // Import axios for mocking
 // Mocking axios so we don't use up our api uses while testing.
 jest.mock('axios');
 
-describe('SportsAPI logic', () => {
+describe('TC10: SportsAPI logic', () => {
     it('should fetch upcoming NHL games', async () => {
         // Define mock response data.
         const mockResponseData = {
@@ -133,7 +133,7 @@ describe('SportsAPI logic', () => {
     })
 
     //Fetching upcoming NBA games
-    it('should fetch upcoming NBA games', async () => {
+    it('TC11: should fetch upcoming NBA games', async () => {
         // Define mock response data.
         const mockResponseData = {
             headers: {"x-requests-used": 0},

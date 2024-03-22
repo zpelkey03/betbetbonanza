@@ -8,6 +8,7 @@ import { addDoc, getDocs, updateDoc } from 'firebase/firestore';
  * 1. updateUserCredits - verifies the update of user credits based on their email
  * 2. getAllBetsByUserEmail - verifies if all bets related to a user's email are fetched accurately
  * 3. addBetToDatabase - verifies that a bet is added to database correctly.
+ * 4. updateWinCredits - verifies that bets are categorized as winning/losing and credits updated appropriately.
 */
 
 
@@ -30,7 +31,7 @@ describe('Bets business logic', () => {
   });
 
   // test case: Updating user credits successfully
-  it('updates user credits successfully', async () => {
+  it('TC5: updates user credits successfully', async () => {
     // mock getDocs function to simulate fetching user documents - represents a non-empty query snapshot
     getDocs.mockResolvedValue({
       empty: false,
@@ -53,7 +54,7 @@ describe('Bets business logic', () => {
 
 
   // test case: Successfully fetching all bets associated with a user's email
-  it('fetches all bets by user email successfully', async () => {
+  it('TC6: fetches all bets by user email successfully', async () => {
 
     // `getDocs` function is mocked to simulate the retrieval process - avoids actual db calls for testing
     getDocs.mockResolvedValue({
@@ -76,7 +77,7 @@ describe('Bets business logic', () => {
   });
 
   //test case for placing a bet into the database.
-  it('Adds the specified bet to the database', async () => {
+  it('TC7: Adds the specified bet to the database', async () => {
 
     //Setting the input bet data for the test.
     const gameData = {
@@ -111,7 +112,7 @@ describe('Bets business logic', () => {
 
   })
 
-  it('updates win credits for winning bet', async () => {
+  it('TC8: updates win credits for winning bet', async () => {
     // mocked getDocs along w/ forEach (for querySnapshot, w/o foreach being mocked - will get many errors due to Bets.js dependancies)
     getDocs.mockResolvedValue({
       empty: false,
@@ -143,7 +144,7 @@ describe('Bets business logic', () => {
     expect(updateDoc).toHaveBeenCalledTimes(1);     // ensure only updated once
   });
   
-  it('does not update credits for losing bet', async () => {
+  it('TC9: does not update credits for losing bet', async () => {
 
     jest.clearAllMocks();
   
