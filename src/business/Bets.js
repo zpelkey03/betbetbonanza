@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, getDoc, query, where, getDocs, doc, updateDoc} from 'firebase/firestore';
+import { getFirestore, collection, addDoc,  query, where, getDocs, doc, updateDoc} from 'firebase/firestore';
 import { getDatabase, ref, get, child } from 'firebase/database';
 import firebaseApp from '../config/database/firebaseConfig';
 import { writeBatch } from "firebase/firestore";
@@ -6,8 +6,7 @@ import { fetchedUser, setFetchedUser } from '../presentation/LogInComponent';
 
 // Use the initialized Firebase app
 const db = getFirestore(firebaseApp);
-const database = getDatabase();
-const dbRef = ref(database);
+
 // Function to add a bet to the database
 export const addBetToDatabase = async (sport, game, team, wagerAmount, returnAmount, userEmail, isCompleted) => {
     try {

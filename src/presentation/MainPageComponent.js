@@ -1,7 +1,4 @@
 import Images from './images/images';
-import { useEffect, useState } from 'react';
-import BettingItemView from './BettingItemView';
-
 
 const MainPageComponent = ({ onSportSelect }) => {
 

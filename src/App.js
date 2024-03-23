@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import "tailwindcss/tailwind.css"; 
 import LogInComponent from './presentation/LogInComponent';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';

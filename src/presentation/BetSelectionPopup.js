@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { addBetToDatabase, updateUserCredits } from '../business/Bets';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
 
 
 const BetSelectionPopup = ({ gameId, sport, upcomingNHLGames, upcomingNBAGames, upcomingSoccerGames, homeOrAway, closePopup }) => {
 
     const [selectedGame, setSelectedGame] = useState(null);
-    const navigate = useNavigate();
+
 
     //Boiler plate code that tells Toast where and how long to show for 
     const toastSettings = () => ({

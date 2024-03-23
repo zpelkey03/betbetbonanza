@@ -3,7 +3,7 @@ import Images from './images/images';
 
 const UserBetsView = ({ gameInformation }) => {
 
-    const { away_team, home_team, id, commence_time, isCompleted } = gameInformation.game;
+    const { away_team, home_team, commence_time} = gameInformation.game;
 
 
     console.log(gameInformation);

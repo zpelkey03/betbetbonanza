@@ -1,6 +1,6 @@
 import { fetchedUser } from './LogInComponent';
 import { useEffect, useState } from 'react';
-import { getAllBetsByUserEmail, updateUserCredits, updateWinCredits } from '../business/Bets'; // Assuming you've named the file containing the function getAllBetsByUserEmail as BetsUtils.js
+import { getAllBetsByUserEmail, updateWinCredits } from '../business/Bets'; // Assuming you've named the file containing the function getAllBetsByUserEmail as BetsUtils.js
 import { getGamesByIds, updateBetsInDatabase } from '../business/Bets'
 import UserBetsView from './UserBetsView';
 import CreditsAndEmail from './CreditsAndEmail';

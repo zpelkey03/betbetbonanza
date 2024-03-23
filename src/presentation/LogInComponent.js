@@ -107,8 +107,7 @@ function LogInComponent() {
       })
 
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(error.code);
 
         toast.error('Invalid email or password. Please try again.', toastSettings);
 
@@ -153,8 +152,7 @@ function LogInComponent() {
 
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(error.code);
 
         toast.error('Invalid email or password. Please try again.', toastSettings);
       });

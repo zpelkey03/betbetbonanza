@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
-import { getAuth, signOut } from "firebase/auth";
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchedUser } from './LogInComponent';
-import { fetchUpcomingNHLGames } from '../business/SportsApi';
 import "./UserDashboard.css"
 import BettingItemView from './BettingItemView';
 import VerticalNavbar from './VerticalNavbar';
@@ -34,7 +31,6 @@ function UserDashboard() {
         }
     };
 
-    const navigate = useNavigate();
 
     //Renders the content re-written
     //Much simpler and better logic 
@@ -59,7 +55,7 @@ function UserDashboard() {
             <div>
 
                 {isSportOrProfile && imageToLoad && (
-                    <img src={imageToLoad} style={{ maxHeight: '400px', width: '98%' }} className="m-4 rounded-md shadow-md" />
+                    <img src={imageToLoad} style={{ maxHeight: '400px', width: '98%' }} className="m-4 rounded-md shadow-md" alt= "shadow" />
                 )}
 
                 {/* Render BettingItemView or ProfileComponent based on selectedSport.
