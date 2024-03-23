@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getFirestore, collection, query, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 import app from "../../config/database/firebaseConfig";
 import SingleUser from "./SingleUser";
 

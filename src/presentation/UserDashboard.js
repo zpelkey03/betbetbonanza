@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import "./UserDashboard.css"
 import BettingItemView from './BettingItemView';
 import VerticalNavbar from './VerticalNavbar';

@@ -35,7 +35,7 @@ const VerticalNavbar = ({ onSportButtonClick }) => {
                     >
                         <div className="flex items-center justify-between p-2 hover:bg-gray-700 ">
                             <div className="flex items-center">
-                                <img src={nhlLogo} className="mr-2 h-6 w-6" />
+                                <img src={nhlLogo} className="mr-2 h-6 w-6" alt="nhl_logo"/>
                                 <button onClick={() => onSportButtonClick('hockey')}>View NHL Bets</button>
                             </div>
                             <i className="fas fa-chevron-down text-xs"></i>
@@ -49,7 +49,7 @@ const VerticalNavbar = ({ onSportButtonClick }) => {
                     >
                         <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                             <div className="flex items-center">
-                                <img src={nbaLogo} className="mr-2 h-6" />
+                                <img src={nbaLogo} className="mr-2 h-6" alt="nba_logo" />
                                 <button onClick={() => onSportButtonClick('basketball')}>View NBA Bets</button>
                             </div>
                             <i className="fas fa-chevron-down text-xs"></i>
@@ -63,7 +63,7 @@ const VerticalNavbar = ({ onSportButtonClick }) => {
                     >
                         <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                             <div className="flex items-center">
-                            <img src={mlsLogo} className="mr-2 h-6 max-h-6 max-w-6" />                                <button onClick={() => onSportButtonClick('soccer')}>View Soccer Bets</button>
+                            <img src={mlsLogo} className="mr-2 h-6 max-h-6 max-w-6" alt="mls_logo" />                                <button onClick={() => onSportButtonClick('soccer')}>View Soccer Bets</button>
                          </div>
                             <i className="fas fa-chevron-down text-xs"></i>
                         </div>
@@ -76,7 +76,7 @@ const VerticalNavbar = ({ onSportButtonClick }) => {
                     >
                         <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                             <div className="flex items-center">
-                            <img src={profileLogo} className="mr-2 h-6" />
+                            <img src={profileLogo} className="mr-2 h-6" alt="profile_logo" />
                                 <button onClick={() => onSportButtonClick('profile')}>View Profile</button>
                             </div>
                             <i className="fas fa-chevron-down text-xs"></i>
