@@ -6,7 +6,7 @@ const SingleUser = ({ user, shadeRow }) => {
 
     const handleCreditChange = async (adjustment) => {
         const adjustmentAmount = adjustment > 0 ? adjustment : -Math.min(user.credits, Math.abs(adjustment)); // dont let credits go below 0
-        const newCreditAmount = user.credits + adjustmentAmount;
+        const newCreditAmount = parseInt(user.credits) + adjustmentAmount;
         await updateUserCredits(user.email, newCreditAmount);
     };
 
