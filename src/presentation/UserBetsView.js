@@ -28,7 +28,7 @@ const UserBetsView = ({ gameInformation }) => {
         actualReturn = "0.00";
         showIndicatorImage = false;
 
-    } else if (gameInformation.isCompleted && gameInformation.winner == gameInformation.team) {
+    } else if (gameInformation.isCompleted && gameInformation.winner === gameInformation.team) {
         gameStatus = "Game is finished"
         actualReturn = gameInformation.returnAmount;
         imageToReturn = Images.checkmark; 
