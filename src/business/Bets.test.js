@@ -95,8 +95,8 @@ describe('Bets business logic', () => {
       returnAmount: "12.50",
       userEmail: "testing@gmail.com",
       isCompleted: false,
-      homescore: null,
-      awayscore: null,
+      homeScore: null,
+      awayScore: null,
       winner: null,
     };
 

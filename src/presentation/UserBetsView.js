@@ -5,7 +5,6 @@ const UserBetsView = ({ gameInformation }) => {
 
     const { away_team, home_team, commence_time} = gameInformation.game;
 
-
     console.log(gameInformation);
     //Fix the date formatting 
     const commenceTime = new Date(commence_time);
@@ -27,12 +26,13 @@ const UserBetsView = ({ gameInformation }) => {
         actualReturn = "0.00";
         imageToReturn = Images.xmark;
 
-    } else if (gameInformation.isCompleted && gameInformation.returnAmount > 0) {
+    } else if (gameInformation.isCompleted && gameInformation.winner == gameInformation.team) {
         gameStatus = "Game is finished"
         actualReturn = gameInformation.returnAmount;
         imageToReturn = Images.checkmark; 
     } else {
         imageToReturn = Images.xmark; 
+        actualReturn = 0.00; 
     }
 
     return (
