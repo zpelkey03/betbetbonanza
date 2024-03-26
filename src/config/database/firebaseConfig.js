@@ -3,14 +3,14 @@
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAjtblM4O1zdNcWibaSuqg69Y4rokR6rAo",
-    authDomain: "betbetbonanza.firebaseapp.com",
-    projectId: "betbetbonanza",
-    storageBucket: "betbetbonanza.appspot.com",
-    messagingSenderId: "175118442458",
-    appId: "1:175118442458:web:06db2b9eaae3de0c91aae3",
-    measurementId: "G-SL13ZGYN3X"
-  };
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+};
   
   const app = initializeApp(firebaseConfig);
 
