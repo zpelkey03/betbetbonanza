@@ -33,6 +33,7 @@ const UserBetsView = ({ gameInformation }) => {
         actualReturn = gameInformation.returnAmount;
         imageToReturn = Images.checkmark; 
     } else {
+        gameStatus = "Game is finished"
         imageToReturn = Images.xmark; 
         actualReturn = 0.00; 
     }
