@@ -6,16 +6,7 @@ import UserDashboard from './presentation/UserDashboard';
 import AdminDashboard from './presentation/adminComponents/AdminDashboard';
 
 const App = () => {
-  // const [dataFromFirebase, setDataFromFirebase] = useState([]);
-
-  // const fetchData = async () => {
-  //   try {
-  //     const data = await fetchDataFromFirebase();
-  //     setDataFromFirebase(data);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
+  
 
   // useEffect(() => {
   //   // Fetch data from Firebase when the component mounts
