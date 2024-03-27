@@ -10,9 +10,11 @@ admin.initializeApp();
 // Scheduled function to update game results for multiple sports every 4 hours
 exports.updateGameResults = functions.pubsub.schedule('every 4 hours').onRun(async (context) => {
   try {
-    const hockeyApiKey = 'af2ea33257292ab1c571d6d865402d84 '; // Replace with your actual hockey API key
-    const basketballApiKey = 'af2ea33257292ab1c571d6d865402d84 '; // Replace with your actual basketball API key
-    const soccerApiKey = 'af2ea33257292ab1c571d6d865402d84 '; // Replace with your actual soccer API key
+    const apiKey = process.env.REACT_APP_FUNCTION_API;
+
+    const hockeyApiKey = apiKey // Replace with your actual hockey API key
+    const basketballApiKey = apiKey // Replace with your actual basketball API key
+    const soccerApiKey = apiKey; // Replace with your actual soccer API key
     const hockeySport = 'icehockey_nhl';
     const basketballSport = 'basketball_nba';
     const soccerSport = 'soccer_usa_mls';

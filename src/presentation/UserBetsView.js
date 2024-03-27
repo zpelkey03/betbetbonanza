@@ -5,7 +5,6 @@ const UserBetsView = ({ gameInformation }) => {
 
     const { away_team, home_team, commence_time} = gameInformation.game;
 
-
     console.log(gameInformation);
     //Fix the date formatting 
     const commenceTime = new Date(commence_time);
@@ -22,24 +21,28 @@ const UserBetsView = ({ gameInformation }) => {
     let actualReturn;
     let imageToReturn; 
 
+    let showIndicatorImage = true;
+
     if (!gameInformation.isCompleted) {
         gameStatus = "Game is not finished"
         actualReturn = "0.00";
-        imageToReturn = Images.xmark;
+        showIndicatorImage = false;
 
-    } else if (gameInformation.isCompleted && gameInformation.returnAmount > 0) {
+    } else if (gameInformation.isCompleted && gameInformation.winner === gameInformation.team) {
         gameStatus = "Game is finished"
         actualReturn = gameInformation.returnAmount;
         imageToReturn = Images.checkmark; 
     } else {
+        gameStatus = "Game is finished"
         imageToReturn = Images.xmark; 
+        actualReturn = 0.00; 
     }
 
     return (
 
         <div className="bg-gray-900 border border-gray-800 shadow-lg rounded-2xl p-4 relative mb-2">
 
-            <img src={imageToReturn} alt="Description" className="absolute top-1 left-1 w-6 h-6" />
+            {showIndicatorImage && <img src={imageToReturn} alt="Description" className="absolute top-1 left-1 w-6 h-6" />}
 
             {/* Main content */}
             <div className="flex-none sm:flex">

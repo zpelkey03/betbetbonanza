@@ -22,8 +22,8 @@ export const addBetToDatabase = async (sport, game, team, wagerAmount, returnAmo
             returnAmount: returnAmount,
             userEmail: userEmail,
             isCompleted: isCompleted,
-            homescore: null,
-            awayscore: null,
+            homeScore: null,
+            awayScore: null,
             winner:null
         });
 
