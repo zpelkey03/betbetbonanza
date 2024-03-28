@@ -1,0 +1,336 @@
+{
+  "id": "475631f5-b22e-434d-b621-1b0623408ed6",
+  "version": "2.0",
+  "name": "Functional-Requirement-Tests_BetBetBonanza",
+  "url": "https://betbetbonanza.netlify.app",
+  "tests": [{
+    "id": "1f1f4813-52a0-4e00-9ea6-dd96d6bcb067",
+    "name": "Admin- Change Credits",
+    "commands": [{
+      "id": "98d0feb4-cddf-4464-b798-50c7b54079a6",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4b661440-5b13-4b25-9b48-35b4635958dc",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "2560x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d300e83d-f7a3-46e6-b8f9-0efdd788aabe",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a427d11-88c0-4993-b6b6-800c156d4d3f",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "admin@gmail.com"
+    }, {
+      "id": "9adfb724-9ba8-4245-96ec-ada7dcc7d6b4",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "admin123"
+    }, {
+      "id": "57f907a3-3a10-4acd-ab66-f62f9a3dabbd",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "8ac203bb-0cc7-4b21-b986-792498d063e3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.hover\\3A bg-gray-100:nth-child(2) .rounded-lg:nth-child(3)",
+      "targets": [
+        ["css=.hover\\3A bg-gray-100:nth-child(2) .rounded-lg:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/table/tbody/tr[2]/td[3]/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "c964b9c5-3262-4bed-a2bb-cfeee96b3ba7",
+    "name": "User- Accessing Different sports pages",
+    "commands": [{
+      "id": "690fe2d3-7ea1-4cf1-a123-50014404fcdb",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d44fd2b6-5bf5-46d9-b7d3-5cfb7aff4eef",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "2560x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "478201d9-345f-469f-8f29-31597670979c",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "30fc3961-243a-4f68-a6a5-360426dc9f62",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "curry@gmail.com"
+    }, {
+      "id": "2eec11bd-35d2-4e7f-9928-4f3931935f25",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "lebron"
+    }, {
+      "id": "76fd198c-22df-4695-8963-4caaceb670a7",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "8fecc45c-1615-4a99-9205-1d18b754e5df",
+      "comment": "",
+      "command": "click",
+      "target": "css=.bg-white:nth-child(3) > .bg-gray-800",
+      "targets": [
+        ["css=.bg-white:nth-child(3) > .bg-gray-800", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/div/div/button[3]/div", "xpath:idRelative"],
+        ["xpath=//button[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a52dff28-ab53-4339-8be1-1b5101dae5cb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.transition-transform:nth-child(3) button",
+      "targets": [
+        ["css=.transition-transform:nth-child(3) button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/aside/nav/ul/li[3]/div/div/button", "xpath:idRelative"],
+        ["xpath=//li[3]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'View NBA Bets')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2faffb6f-6fc3-4934-b49c-8fa1dada0d24",
+      "comment": "",
+      "command": "click",
+      "target": "css=.transition-transform:nth-child(2) button",
+      "targets": [
+        ["css=.transition-transform:nth-child(2) button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/aside/nav/ul/li[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//li[2]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'View NHL Bets')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9d876484-bc67-4294-8cb5-aa680ac7e506",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.transition-transform:nth-child(2) button",
+      "targets": [
+        ["css=.transition-transform:nth-child(2) button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/aside/nav/ul/li[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//li[2]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'View NHL Bets')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9807a918-6e8a-465f-85e8-09631761abd9",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.transition-transform:nth-child(2) button",
+      "targets": [
+        ["css=.transition-transform:nth-child(2) button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/aside/nav/ul/li[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//li[2]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'View NHL Bets')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "23e4d590-377d-4e35-a51c-3a500500c692",
+    "name": "User- Accessing Profile Page",
+    "commands": [{
+      "id": "836f2062-d5c0-4cef-93d2-38c26cda5ae3",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4170833f-8470-4371-85d6-16a389eaf634",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1342x823",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "94b1d2d4-1d2f-46b6-9504-9eaf59da53a3",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0970e624-fbaa-45d5-840a-5bdde9bbd3f3",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "curry@gmail.com"
+    }, {
+      "id": "5af9c0b3-a3cc-414c-94bb-dd43698a8e68",
+      "comment": "",
+      "command": "click",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3a0faa24-0b1c-4ab8-a990-38d7987521a3",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "lebron"
+    }, {
+      "id": "eb146c89-264d-4ca0-a597-fd6f4d478610",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/div/div[2]/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "5f1b3c10-3c19-4f10-8511-3600176922f4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.transition-transform:nth-child(5) button",
+      "targets": [
+        ["css=.transition-transform:nth-child(5) button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/aside/nav/ul/li[5]/div/div/button", "xpath:idRelative"],
+        ["xpath=//li[5]/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'View Profile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "363081fd-2097-4014-9d1d-aef09e7024e8",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["1f1f4813-52a0-4e00-9ea6-dd96d6bcb067"]
+  }],
+  "urls": ["https://betbetbonanza.netlify.app/"],
+  "plugins": []
+}
